@@ -1,0 +1,130 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.LoggingTest", "ConsoleLogging\Fanex.LoggingTest.csproj", "{675A57E8-E268-4970-AF8A-AE0387795361}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Logging", "Fanex.Logging\Fanex.Logging.csproj", "{5A5A7B5A-0DAD-4E1E-9A20-A71B6FE950C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{EEA8CB8B-7E9A-4E8C-8F49-D3E222DF5B23}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{DDE2F699-3AC2-48E3-AAFB-714A299FC719}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Caching", "Caching", "{B80B8AB7-1AB9-4F63-A40E-BFB406C9F6FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Common", "Fanex.Common\Fanex.Common.csproj", "{1766DA24-D998-494B-B850-1DA947A5AC4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Caching", "Fanex.Caching\Fanex.Caching.csproj", "{B9FF7938-4839-499F-B21C-EC2C1A9177C3}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CommonTest", "CommonTest\", "{D26AF936-5216-40D9-A570-2F9706C8F4A1}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = ""
+		SccAuxPath = ""
+		SccLocalPath = ""
+		SccProvider = ""
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{1766DA24-D998-494B-B850-1DA947A5AC4C}|Fanex.Common.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/CommonTest"
+		Debug.AspNetCompiler.PhysicalPath = "CommonTest\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\CommonTest\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/CommonTest"
+		Release.AspNetCompiler.PhysicalPath = "CommonTest\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\CommonTest\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "57556"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CachingUnitTest", "Fanex.CachingUnitTest\Fanex.CachingUnitTest.csproj", "{C9FA1EFD-D477-4527-8D63-39DD66D1E334}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StyleCop", "StyleCop", "{6F90F0CC-C5BA-4866-9E73-E6BD31AB7AA1}"
+	ProjectSection(SolutionItems) = preProject
+		Settings.StyleCop = Settings.StyleCop
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Fanex2.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{675A57E8-E268-4970-AF8A-AE0387795361}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{675A57E8-E268-4970-AF8A-AE0387795361}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{675A57E8-E268-4970-AF8A-AE0387795361}.Debug|x86.ActiveCfg = Debug|x86
+		{675A57E8-E268-4970-AF8A-AE0387795361}.Debug|x86.Build.0 = Debug|x86
+		{675A57E8-E268-4970-AF8A-AE0387795361}.Release|Any CPU.ActiveCfg = Release|x86
+		{675A57E8-E268-4970-AF8A-AE0387795361}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{675A57E8-E268-4970-AF8A-AE0387795361}.Release|Mixed Platforms.Build.0 = Release|x86
+		{675A57E8-E268-4970-AF8A-AE0387795361}.Release|x86.ActiveCfg = Release|x86
+		{675A57E8-E268-4970-AF8A-AE0387795361}.Release|x86.Build.0 = Release|x86
+		{5A5A7B5A-0DAD-4E1E-9A20-A71B6FE950C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A5A7B5A-0DAD-4E1E-9A20-A71B6FE950C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A5A7B5A-0DAD-4E1E-9A20-A71B6FE950C6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5A5A7B5A-0DAD-4E1E-9A20-A71B6FE950C6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5A5A7B5A-0DAD-4E1E-9A20-A71B6FE950C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A5A7B5A-0DAD-4E1E-9A20-A71B6FE950C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A5A7B5A-0DAD-4E1E-9A20-A71B6FE950C6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5A5A7B5A-0DAD-4E1E-9A20-A71B6FE950C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5A5A7B5A-0DAD-4E1E-9A20-A71B6FE950C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{1766DA24-D998-494B-B850-1DA947A5AC4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1766DA24-D998-494B-B850-1DA947A5AC4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1766DA24-D998-494B-B850-1DA947A5AC4C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1766DA24-D998-494B-B850-1DA947A5AC4C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1766DA24-D998-494B-B850-1DA947A5AC4C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1766DA24-D998-494B-B850-1DA947A5AC4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1766DA24-D998-494B-B850-1DA947A5AC4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1766DA24-D998-494B-B850-1DA947A5AC4C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1766DA24-D998-494B-B850-1DA947A5AC4C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1766DA24-D998-494B-B850-1DA947A5AC4C}.Release|x86.ActiveCfg = Release|Any CPU
+		{B9FF7938-4839-499F-B21C-EC2C1A9177C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9FF7938-4839-499F-B21C-EC2C1A9177C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9FF7938-4839-499F-B21C-EC2C1A9177C3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B9FF7938-4839-499F-B21C-EC2C1A9177C3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B9FF7938-4839-499F-B21C-EC2C1A9177C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9FF7938-4839-499F-B21C-EC2C1A9177C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9FF7938-4839-499F-B21C-EC2C1A9177C3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B9FF7938-4839-499F-B21C-EC2C1A9177C3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B9FF7938-4839-499F-B21C-EC2C1A9177C3}.Release|x86.ActiveCfg = Release|Any CPU
+		{D26AF936-5216-40D9-A570-2F9706C8F4A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D26AF936-5216-40D9-A570-2F9706C8F4A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D26AF936-5216-40D9-A570-2F9706C8F4A1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D26AF936-5216-40D9-A570-2F9706C8F4A1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D26AF936-5216-40D9-A570-2F9706C8F4A1}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{D26AF936-5216-40D9-A570-2F9706C8F4A1}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{D26AF936-5216-40D9-A570-2F9706C8F4A1}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D26AF936-5216-40D9-A570-2F9706C8F4A1}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D26AF936-5216-40D9-A570-2F9706C8F4A1}.Release|x86.ActiveCfg = Debug|Any CPU
+		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5A5A7B5A-0DAD-4E1E-9A20-A71B6FE950C6} = {EEA8CB8B-7E9A-4E8C-8F49-D3E222DF5B23}
+		{675A57E8-E268-4970-AF8A-AE0387795361} = {EEA8CB8B-7E9A-4E8C-8F49-D3E222DF5B23}
+		{1766DA24-D998-494B-B850-1DA947A5AC4C} = {DDE2F699-3AC2-48E3-AAFB-714A299FC719}
+		{D26AF936-5216-40D9-A570-2F9706C8F4A1} = {DDE2F699-3AC2-48E3-AAFB-714A299FC719}
+		{B9FF7938-4839-499F-B21C-EC2C1A9177C3} = {B80B8AB7-1AB9-4F63-A40E-BFB406C9F6FE}
+		{C9FA1EFD-D477-4527-8D63-39DD66D1E334} = {B80B8AB7-1AB9-4F63-A40E-BFB406C9F6FE}
+	EndGlobalSection
+EndGlobal
