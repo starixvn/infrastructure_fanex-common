@@ -5,24 +5,27 @@
 // <history>
 // <change who="anders.le" date="2012.4.3">Created</change>
 // </history>
+
 namespace Fanex.Caching
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     /// <summary>
-    /// EntlibCache=1, Memcache=2, MemoryCache=3,SharedCache=4, WeakRefCache=5
+    /// ENTLIBCACHE = 1, MEMCACHE = 2, MEMORYCACHE = 3, SHAREDCACHE = 4, WEAKREFCACHE = 5.
     /// </summary>
     public enum CacheType
     {
-        EntlibCache = 1, 
         /// <summary>
-        /// this is MemCached type
+        /// The ENTLIB cache.
         /// </summary>
-        MemCache = 2, 
+        EntlibCache = 1, 
 
+        /// <summary>
+        /// This is MEMCACHED type.
+        /// </summary>
+        MemCache = 2,
+
+        /// <summary>
+        /// The MEMORY cache.
+        /// </summary>
         MemoryCache = 3        
     }
 }

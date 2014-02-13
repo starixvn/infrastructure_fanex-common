@@ -43,9 +43,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CachingUnitTest", "Fanex.CachingUnitTest\Fanex.CachingUnitTest.csproj", "{C9FA1EFD-D477-4527-8D63-39DD66D1E334}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StyleCop", "StyleCop", "{6F90F0CC-C5BA-4866-9E73-E6BD31AB7AA1}"
-	ProjectSection(SolutionItems) = preProject
-		Settings.StyleCop = Settings.StyleCop
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution

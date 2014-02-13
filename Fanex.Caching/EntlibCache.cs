@@ -24,7 +24,7 @@ namespace Fanex.Caching
 
     /// <summary>
     /// <see cref="http://msdn.microsoft.com/en-us/library/ff664753%28v=PandP.50%29.aspx"/>    
-    /// Enterprise library cache adaptor
+    /// Enterprise library cache adaptor.
     /// </summary>
     internal class EntlibCache : ICache
     {
@@ -32,12 +32,12 @@ namespace Fanex.Caching
         private static object syncRoot = new object();
 
         /// <summary>
-        /// contains a list of keys of current cache instance
+        /// contains a list of keys of current cache instance.
         /// </summary>
         private static volatile HashSet<string> listKey;
 
         /// <summary>
-        /// Gets all keys in current cache instance
+        /// Gets all keys in current cache instance.
         /// </summary>
         public HashSet<string> Keys
         {
@@ -83,7 +83,7 @@ namespace Fanex.Caching
         #region ICache Members
 
         /// <summary>
-        /// Gets the number of item in current cache instance
+        /// Gets the number of item in current cache instance.
         /// </summary>
         public int Count
         {

@@ -11,22 +11,23 @@
 //  <change who="Anders" date="2011.12.27">Correct create instance cache by type</change>
 // <change who="Anders.le" date="2012.3.28">Refactor, and check correct source code follow StyleCop</change>
 // </history>
+
 namespace Fanex.Caching
 {
     using System;
 
     /// <summary>
-    /// factory service to create cache instance
-    /// which ervery type of cache, cacheservice just create only one innstance
-    /// http://msdn.microsoft.com/en-us/library/ff650316.aspx
+    /// Factory service to create cache instance
+    /// which every type of cache, cache service just create only one instance.
+    /// <see cref="http://msdn.microsoft.com/en-us/library/ff650316.aspx"/>
     /// </summary>
     public static class CacheService
     {
         /// <summary>
-        /// Create cache instance by cache type        
+        /// Create cache instance by cache type.
         /// </summary>
-        /// <param name="cacheType"><see cref="CacheType"/>cacheType</param>
-        /// <returns><see cref="ICache"/>ICache</returns>
+        /// <param name="cacheType"><see cref="CacheType"/>The cache type.</param>
+        /// <returns><see cref="ICache"/>The ICache.</returns>
         public static ICache CreateInstance(CacheType cacheType)
         {           
             switch (cacheType)
@@ -42,20 +43,20 @@ namespace Fanex.Caching
         }
 
         /// <summary>
-        /// Create memory cache instance
+        /// Create memory cache instance.
         /// </summary>
-        /// <returns><see cref="ICache"/>ICache</returns>
+        /// <returns><see cref="ICache"/>The ICache.</returns>
         public static ICache CreateInstance()
         {
             return CreateInstance(CacheType.MemoryCache);
         }
 
         /// <summary>
-        /// Create cache instance by string enum type
-        /// Create MemoryCache as default
+        /// Create cache instance by string ENUM type.
+        /// Create MemoryCache as default.
         /// </summary>
-        /// <param name="type"><see cref="CacheType"/>cache type</param>
-        /// <returns><see cref="ICache"/>ICache</returns>
+        /// <param name="type"><see cref="CacheType"/>The cache type.</param>
+        /// <returns><see cref="ICache"/>The ICache.</returns>
         public static ICache CreateInstance(string type)
         {
             if (string.IsNullOrWhiteSpace(type))
@@ -69,9 +70,9 @@ namespace Fanex.Caching
         }
 
         /// <summary>
-        /// clear the cache instance, and all item in the cache
+        /// Clear the cache instance, and all item in the cache.
         /// </summary>
-        /// <param name="type"><see cref="CacheType"/>type</param>
+        /// <param name="type"><see cref="CacheType"/>The cache type.</param>
         public static void Dispose(CacheType type)
         {
             ICache cachInstance = CreateInstance(type);
