@@ -100,7 +100,7 @@ namespace Fanex.Common.Extensions
                 }
             }
 
-            return result;
+            return defaultValue;
         }
 
         [DebuggerStepThrough]

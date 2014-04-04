@@ -40,14 +40,14 @@ namespace Fanex.Common.Extensions
             return (T)session[key];
         }
 
-        public static object GetSession(HttpSessionState sessionState, string key)
+        public static object GetSession(this HttpSessionState sessionState, string key)
         {
 
             return sessionState[key];
 
         }
 
-        public static void AddSession(HttpSessionState sessionState, string key, object value)
+        public static void AddSession(this HttpSessionState sessionState, string key, object value)
         {
             sessionState[key] = value;
         }
