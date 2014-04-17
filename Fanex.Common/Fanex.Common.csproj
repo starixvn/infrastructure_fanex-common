@@ -81,7 +81,7 @@
     <Compile Include="Extensions\SessionExtensions.cs" />
     <Compile Include="Extensions\StringEnum.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Helper\CheckArgument.cs" />
+    <Compile Include="Helper\Check.cs" />
     <Compile Include="Helper\DisposableResource.cs" />
     <Compile Include="Helper\PagedResult.cs" />
     <Compile Include="Helper\SystemTime.cs" />

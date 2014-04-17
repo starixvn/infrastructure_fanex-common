@@ -1,16 +1,31 @@
-﻿namespace  Fanex.Common.Helper
+﻿// --------------------------------------------------------------------------
+// <copyright file="Check.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Edward.Nguyen" date="2014.4.17">Created</change>
+// </history>
+
+namespace Fanex.Common.Helper
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using Extensions;
 
+    /// <summary>
+    /// The check class.
+    /// </summary>
     public class Check
     {
         internal Check()
         {
         }
 
+        /// <summary>
+        /// The argument class.
+        /// </summary>
         public class Argument
         {
             internal Argument()
@@ -181,6 +196,13 @@
                 }
             }
 
+            /// <summary>
+            /// Determines whether [is not all empty] [the specified argument name].
+            /// </summary>
+            /// <typeparam name="T">The type of T.</typeparam>
+            /// <param name="argumentName">Name of the argument.</param>
+            /// <param name="arguments">The arguments.</param>
+            /// <exception cref="System.ArgumentException">All collection cannot be empty.</exception>
             [DebuggerStepThrough]
             public static void IsNotAllEmpty<T>(string argumentName, params ICollection<T>[] arguments)
             {

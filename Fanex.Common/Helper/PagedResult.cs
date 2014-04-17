@@ -1,9 +1,22 @@
-namespace  Fanex.Common.Helper
+// --------------------------------------------------------------------------
+// <copyright file="PagedResult.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Edward.Nguyen" date="2014.4.17">Created</change>
+// </history>
+
+namespace Fanex.Common.Helper
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
 
+    /// <summary>
+    /// The page result class.
+    /// </summary>
+    /// <typeparam name="T">The type of T.</typeparam>
     public class PagedResult<T>
     {
         private readonly ReadOnlyCollection<T> _result;
