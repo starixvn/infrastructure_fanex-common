@@ -4,9 +4,9 @@
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-// <change who="anders.le" date="2012.2.22">Created</change>
-// <change who="anders.le" date="2012.2.22">Add more param with default value</change>
-// <change who="Anders.Le" date="2012.8.22">Fix bug convert to decimal</change>
+//   <change who="anders.le" date="2012.2.22">Created</change>
+//   <change who="anders.le" date="2012.2.22">Add more param with default value</change>
+//   <change who="Anders.Le" date="2012.8.22">Fix bug convert to decimal</change>
 // </history>
 
 namespace Fanex.Common
@@ -15,12 +15,12 @@ namespace Fanex.Common
     using System.Diagnostics;
 
     /// <summary>
-    /// Convert to specific type
+    /// Convert to specific type.
     /// </summary>
     public static class Converter
     {
         /// <summary>
-        /// if object type in T is null or DBNull.Value, return default(T)
+        /// If object type in T is null or DBNull.Value, return default(T)
         /// </summary>
         /// <typeparam name="T">type of converted value</typeparam>
         /// <param name="item">The item.</param>
@@ -32,8 +32,6 @@ namespace Fanex.Common
             {
                 return (T)Convert.ChangeType(item, typeof(T));
             }
-
-            //tersting
 
             return default(T);
         }
@@ -93,7 +91,7 @@ namespace Fanex.Common
 
             if (!ReferenceEquals(item, null) && item != DBNull.Value)
             {
-                b = decimal.TryParse(item.ToString(), out result);              
+                b = decimal.TryParse(item.ToString(), out result);
             }
 
             return b ? result : defaultValue;
