@@ -61,10 +61,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Dependencies\Memcached\Enyim.Caching.dll</HintPath>
     </Reference>
-    <Reference Include="Enyim.Caching.NLogAdapter, Version=2.11.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dependencies\NLog\Enyim.Caching.NLogAdapter.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\edward.nguyen\Desktop\Entlib\Microsoft.Practices.EnterpriseLibrary.Caching.dll</HintPath>
@@ -80,10 +76,6 @@
     <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\edward.nguyen\Desktop\Entlib\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="SharedCache.WinServiceCommon, Version=3.0.5.1, Culture=neutral, PublicKeyToken=19f944f08f2af8b7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dependencies\Sharedcache\SharedCache.WinServiceCommon.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -129,16 +121,16 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Configuration\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Dependencies\Entlibs\Microsoft.Practices.EnterpriseLibrary.Caching.dll" />
     <Content Include="Dependencies\Entlibs\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
     <Content Include="Dependencies\Entlibs\Microsoft.Practices.ServiceLocation.dll" />
     <Content Include="Dependencies\Entlibs\Microsoft.Practices.Unity.dll" />
     <Content Include="Dependencies\Memcached\Couchbase.dll" />
-    <Content Include="Dependencies\Memcached\Couchbase.xml" />
+    <Content Include="Dependencies\Memcached\Couchbase.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Dependencies\Memcached\Enyim.Caching.dll" />
     <Content Include="Dependencies\Memcached\Enyim.Caching.pdb" />
     <Content Include="Dependencies\Memcached\Enyim.Caching.xml" />
@@ -149,7 +141,6 @@
     <Content Include="Readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CacheService_CreateInstance.sequencediagram" />
     <None Include="Dependencies\NLog\Demo.config" />
   </ItemGroup>
   <ItemGroup>
@@ -157,11 +148,6 @@
       <Project>{1766DA24-D998-494B-B850-1DA947A5AC4C}</Project>
       <Name>Fanex.Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="CacheService_CreateInstance.sequencediagram.layout">
-      <DependentUpon>CacheService_CreateInstance.sequencediagram</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

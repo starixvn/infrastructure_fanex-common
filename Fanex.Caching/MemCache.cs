@@ -11,7 +11,7 @@
 // <history>
 // <change who="Anders" date="2011.12.23">Created</change>
 // <change who="Edward" date="2011.12.26">Implement</change>
-// <change who="Anders.le" date="2012.2.20">remove config</change>
+// <change who="Anders.le" date="2012.2.20">remove configuration</change>
 // <change who="Anders.le" date="2012.3.28">Add Function List All Keys</change>
 // <change who="Anders.le" date="2012.4.3">Fix bug Set item, not check duplicate key</change>
 // </history>
@@ -26,7 +26,7 @@ namespace Fanex.Caching
 
     /// <summary>
     ///   <example>http://www.couchbase.com/develop/net/current</example>
-    /// Couchbase - memcache implementation
+    /// COUCHBASE - MEMCACHE implementation.
     /// </summary>
     internal class MemCache : ICache
     {
@@ -38,12 +38,12 @@ namespace Fanex.Caching
         /// <summary>
         /// use to double check when creating singleton instance
         /// </summary>
-        private static object syncRoot = new object();        
+        private static object syncRoot = new object();
 
         /// <summary>
         /// contains a list of keys of current cache instance
         /// </summary>
-        private static volatile HashSet<string> listKey;        
+        private static volatile HashSet<string> listKey;
 
         /// <summary>
         /// Gets all keys in current cache instance
@@ -68,7 +68,7 @@ namespace Fanex.Caching
         }
 
         /// <summary>
-        /// Gets the mem cache client.
+        /// Gets the cache client.
         /// </summary>
         private static MemcachedClient MemCacheClient
         {
@@ -87,10 +87,10 @@ namespace Fanex.Caching
 
                 return couchbaseClient;
             }
-        }     
+        }
 
         /// <summary>
-        /// Create new instance CouchbaseClient
+        /// Create new instance COUCHBASECLIENT
         /// <para>bucketname is null, use default bucket get from configuration</para>
         /// </summary>
         /// <param name="bucketName">if bucket name is empty get default bucket name from configuration</param>
@@ -165,7 +165,7 @@ namespace Fanex.Caching
         /// <param name="value">The value.</param>
         /// <param name="timeOut">The second time out, default is 120s</param>
         public void Set<T>(string key, T value, int timeOut = 120)
-        {            
+        {
             DateTime absoluteExpiration = DateTime.Now.AddSeconds(timeOut);
             Set<T>(key, value, absoluteExpiration);
         }
@@ -226,7 +226,7 @@ namespace Fanex.Caching
         public void Remove(string key)
         {
             if (this.Keys.Count > 0)
-            {                
+            {
                 MemCacheClient.Remove(key);
                 this.Keys.Remove(key);
             }
