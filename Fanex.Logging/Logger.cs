@@ -306,9 +306,9 @@ namespace Fanex.Logging
 
                 Microsoft.Practices.EnterpriseLibrary.Logging.Logger.Write(logEntry);
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
 
