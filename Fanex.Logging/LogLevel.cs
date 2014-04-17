@@ -1,43 +1,38 @@
-﻿// <copyright file="ILogger.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved. 
+﻿// --------------------------------------------------------------------------
+// <copyright file="LogLevel.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
-//
-// <summary>
-//  LogLevel enumeration
-// </summary>
-//
+// --------------------------------------------------------------------------
 // <history>
-//  <change who="Anders" date="2011.12.14">Created</change>
+//   <change who="Anders" date="2011.12.14">Created</change>
 // </history>
-
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Fanex.Logging
 {
     internal enum LogLevel
     {
         /// <summary>
-        /// Debug enum
+        /// The Debug.
         /// </summary>
         Debug,
+
         /// <summary>
-        /// Info enum
+        /// The Information.
         /// </summary>
         Info,
+
         /// <summary>
-        /// Warn enum
+        /// The Warning.
         /// </summary>
         Warn,
+
         /// <summary>
-        /// Error enum
+        /// The Error.
         /// </summary>
         Error,
+
         /// <summary>
-        /// Critical enum
+        /// The Critical.
         /// </summary>
         Critical
     }

@@ -10,39 +10,26 @@
 //  <change who="Anders" date="2011.12.14">Created</change>
 // </history>
 
-using System;
-using System.Configuration;
-using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
-
 namespace Fanex.Logging.Configuration
 {
+    using System;
+    using System.Configuration;
+    using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
+
     /// <summary>
-    /// Represents a configuration section that can be serialized and deserialized to XML.
+    /// Represents a configuration section that can be serialized and desterilized to XML.
     /// </summary>
     public class LoggingSettings : ConfigurationSection
     {
-
         private const string QueuePath = "msmqPath";
         private const string RollingFilePath = "filePath";
         private const string DefaultCategoryName = "defaultCategory";
 
-        /// <summary>
-        /// The name of the configuration section.
-        /// </summary>
         public static string SectionName
         {
             get { return "Fanex.Logging"; }
         }
 
-        public static LoggingSettings GetSettings(IConfigurationSource configurationSource)
-        {
-            if (configurationSource == null) throw new ArgumentNullException("configurationSource");
-            return configurationSource.GetSection(SectionName) as LoggingSettings;
-        }
-
-        /// <summary>
-        /// The path to the msmq to use.
-        /// </summary>
         [ConfigurationProperty(QueuePath, IsRequired = false)]
         public string MsmqPath
         {
@@ -57,14 +44,21 @@ namespace Fanex.Logging.Configuration
             set { base[RollingFilePath] = value; }
         }
 
-        /// <summary>
-        /// Project name can be used as an specific category
-        /// </summary>
         [ConfigurationProperty(DefaultCategoryName, IsRequired = true)]
         public string DefaultCategory
         {
             get { return (string)base[DefaultCategoryName]; }
             set { base[DefaultCategoryName] = value; }
+        }
+
+        public static LoggingSettings GetSettings(IConfigurationSource configurationSource)
+        {
+            if (configurationSource == null)
+            {
+                throw new ArgumentNullException("configurationSource");
+            }
+
+            return configurationSource.GetSection(SectionName) as LoggingSettings;
         }
     }
 }

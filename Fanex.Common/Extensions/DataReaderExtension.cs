@@ -1,18 +1,22 @@
-﻿//<copyright file="DataReaderExtension.cs" company="Nexcel Solutions Vietnam" >
+﻿// --------------------------------------------------------------------------
+// <copyright file="DataReaderExtension.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-//</copyright>
-//
-//<history>
-//	<change who="anders.le" date="2012.2.28">Created</change>
-//</history>
-
-using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Diagnostics;
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="anders.le" date="2012.2.28">Created</change>
+// </history>
 
 namespace Fanex.Common.Extensions
 {
+    using System;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.Diagnostics;
+
+    /// <summary>
+    /// The DataReader extension.
+    /// </summary>
     public static class DataReaderExtension
     {
         [DebuggerStepThrough]
@@ -33,20 +37,29 @@ namespace Fanex.Common.Extensions
             return reader.IsDBNull(reader.GetOrdinal(name));
         }
 
+        /// <summary>
+        /// Try get value.
+        /// </summary>
+        /// <typeparam name="T">The type of T.</typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="name">The column name.</param>
+        /// <param name="output">The output.</param>
+        /// <returns>Indicate whether the parse success.</returns>
         [DebuggerStepThrough]
         public static bool TryGetValue<T>(this IDataReader reader, string name, out T output)
         {
             try
             {
                 output = reader.GetValue<T>(name);
+
                 return true;
             }
-
             catch (Exception ex)
             {
                 if (ex is InvalidCastException || ex is FormatException || ex is OverflowException)
                 {
                     output = default(T);
+
                     return false;
                 }
 
@@ -54,13 +67,6 @@ namespace Fanex.Common.Extensions
             }
         }
 
-        /// <summary>
-        /// Check DBNull before getting value
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="reader"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
         [DebuggerStepThrough]
         public static T To<T>(this IDataReader reader, string name)
         {
@@ -68,6 +74,7 @@ namespace Fanex.Common.Extensions
             {
                 return GetValue<T>(reader, name);
             }
+
             return default(T);
         }
 
@@ -75,7 +82,10 @@ namespace Fanex.Common.Extensions
         public static string ToString(this IDataReader reader, string name)
         {
             if (reader[name] != DBNull.Value)
+            {
                 return reader[name].ToString();
+            }
+
             return string.Empty;
         }
 
@@ -85,6 +95,13 @@ namespace Fanex.Common.Extensions
             return ToBool(reader, name, false);
         }
 
+        /// <summary>
+        /// To the Boolean.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="name">The column name.</param>
+        /// <param name="defaultValue">If set to <c>true</c> [default value].</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
         public static bool ToBool(this IDataReader reader, string name, bool defaultValue)
         {
@@ -103,15 +120,21 @@ namespace Fanex.Common.Extensions
             return defaultValue;
         }
 
+        /// <summary>
+        /// To the Boolean null able.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="name">The column name.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
-        public static Boolean? ToBool2(this IDataReader reader, string name)
+        public static bool? ToBool2(this IDataReader reader, string name)
         {
-            Boolean result = false;
+            bool result = false;
             var check = false;
 
             if (reader[name] != DBNull.Value)
             {
-                check = Boolean.TryParse(reader[name].ToString(), out result);
+                check = bool.TryParse(reader[name].ToString(), out result);
                 if (check)
                 {
                     return result;
@@ -121,6 +144,12 @@ namespace Fanex.Common.Extensions
             return result;
         }
 
+        /// <summary>
+        /// To the integer.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="name">The column name.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
         public static int ToInt(this IDataReader reader, string name)
         {
@@ -139,15 +168,21 @@ namespace Fanex.Common.Extensions
             return 0;
         }
 
+        /// <summary>
+        /// To the short.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="name">The column name.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
-        public static Int16 ToShort(this IDataReader reader, string name)
+        public static short ToShort(this IDataReader reader, string name)
         {
-            Int16 result;
+            short result;
             var check = false;
 
             if (reader[name] != DBNull.Value)
             {
-                check = Int16.TryParse(reader[name].ToString(), out result);
+                check = short.TryParse(reader[name].ToString(), out result);
                 if (check)
                 {
                     return result;
@@ -157,6 +192,12 @@ namespace Fanex.Common.Extensions
             return 0;
         }
 
+        /// <summary>
+        /// To the byte.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="name">The column name.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
         public static byte ToByte(this IDataReader reader, string name)
         {
@@ -175,6 +216,12 @@ namespace Fanex.Common.Extensions
             return 0;
         }
 
+        /// <summary>
+        /// To the decimal.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="name">The column name.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
         public static decimal ToDecimal(this IDataReader reader, string name)
         {
@@ -189,9 +236,16 @@ namespace Fanex.Common.Extensions
                     return result;
                 }
             }
+
             return 0;
         }
 
+        /// <summary>
+        /// To the long.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="name">The column name.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
         public static long ToLong(this IDataReader reader, string name)
         {
@@ -206,9 +260,16 @@ namespace Fanex.Common.Extensions
                     return result;
                 }
             }
+
             return 0;
         }
 
+        /// <summary>
+        /// To the double.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="name">The column name.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
         public static double ToDouble(this IDataReader reader, string name)
         {
@@ -223,9 +284,16 @@ namespace Fanex.Common.Extensions
                     return result;
                 }
             }
+
             return 0;
         }
 
+        /// <summary>
+        /// To the float.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="name">The column name.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
         public static float ToFloat(this IDataReader reader, string name)
         {
@@ -240,9 +308,16 @@ namespace Fanex.Common.Extensions
                     return result;
                 }
             }
+
             return 0;
         }
 
+        /// <summary>
+        /// To the unique identifier.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="name">The column name.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
         public static Guid ToGuid(this IDataReader reader, string name)
         {
@@ -257,15 +332,16 @@ namespace Fanex.Common.Extensions
                     return result;
                 }
             }
+
             return Guid.Empty;
         }
 
         /// <summary>
-        /// If reader[name] is null or DBNull,return DateTime.MinValue
+        /// To the date time.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="name">The column name.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
         public static DateTime ToDateTime(this IDataReader reader, string name)
         {
@@ -285,11 +361,11 @@ namespace Fanex.Common.Extensions
         }
 
         /// <summary>
-        /// Return null if reader[name] is null or DBNull.Value
+        /// To the date time null able.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="name">The column name.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
         public static DateTime? ToDateTime2(this IDataReader reader, string name)
         {
@@ -308,34 +384,46 @@ namespace Fanex.Common.Extensions
             return null;
         }
 
+        /// <summary>
+        /// To the character.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="name">The column name.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
-        public static Char ToChar(this IDataReader reader, string name)
+        public static char ToChar(this IDataReader reader, string name)
         {
-            Char result = ' ';
+            char result = ' ';
             var check = false;
 
             if (reader[name] != DBNull.Value)
             {
-                check = Char.TryParse(reader[name].ToString(), out result);
+                check = char.TryParse(reader[name].ToString(), out result);
             }
 
             return check ? result : ' ';
         }
 
+        /// <summary>
+        /// To the byte array.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="name">The column name.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
-        public static Byte[] ToByteArray(this IDataReader reader, string name)
+        public static byte[] ToByteArray(this IDataReader reader, string name)
         {
-            Byte[] blob = null;
+            byte[] blob = null;
             if (reader[name] != DBNull.Value)
             {
-                //return Convert.ToInt32(reader[name]);
-                //reader.GetBytes(0,
-                //todo wire up the tobyeArray method
+                //// return Convert.ToInt32(reader[name]);
+                //// reader.GetBytes(0,
+                //// to do wire up the tobyeArray method
                 try
                 {
-                    blob = new Byte[(reader.GetBytes(0, 0, null, 0, int.MaxValue))];
+                    blob = new byte[reader.GetBytes(0, 0, null, 0, int.MaxValue)];
                     reader.GetBytes(0, 0, blob, 0, blob.Length);
-                    //reader .GetBytes[0, 0, blob, 0, blob.Length);
+                    //// reader.GetBytes[0, 0, blob, 0, blob.Length);
                 }
                 catch (SqlException e)
                 {
@@ -346,6 +434,7 @@ namespace Fanex.Common.Extensions
                     Console.WriteLine("Exception: " + e.Message);
                 }
             }
+
             return blob;
         }
     }

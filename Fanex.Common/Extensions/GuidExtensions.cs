@@ -1,10 +1,11 @@
-﻿//<copyright file="GuidExtensions.cs" company="Nexcel Solutions Vietnam" >
+﻿// --------------------------------------------------------------------------
+// <copyright file="GuidExtensions.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-//</copyright>
-//
-//<history>
-//	<change who="anders.le" date="2012.2.22">Created</change>
-//</history>
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="anders.le" date="2012.2.22">Created</change>
+// </history>
 
 namespace Fanex.Common.Extensions
 {
@@ -12,6 +13,9 @@ namespace Fanex.Common.Extensions
     using System.Diagnostics;
     using Fanex.Common.Helper;
 
+    /// <summary>
+    /// The GUID extension.
+    /// </summary>
     public static class GuidExtensions
     {
         [DebuggerStepThrough]

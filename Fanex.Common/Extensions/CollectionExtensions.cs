@@ -1,19 +1,19 @@
-//<copyright file="CollectionExtensions.cs" company="Nexcel Solutions Vietnam" >
+// --------------------------------------------------------------------------
+// <copyright file="CollectionExtensions.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-//</copyright>
-//
-//<history>
-//	<change who="anders.le" date="2012.2.23">Created</change>
-//</history>
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="anders.le" date="2012.2.23">Created</change>
+// </history>
 
 namespace Fanex.Common.Extensions
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Linq;
-    using System.Linq.Expressions;
-    using System.Collections.ObjectModel;
 
     /// <summary>
     /// <see cref="http://extensionmethod.net/Result.aspx?text=type%3aSystem.Collections.Generic.ICollection%3CT%3E"/>
@@ -27,11 +27,11 @@ namespace Fanex.Common.Extensions
         }
 
         /// <summary>
-        /// Removes items from a list based on a provided condition 
+        /// Removes items from a list based on a provided condition.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="list"></param>
-        /// <param name="predicate"></param>
+        /// <typeparam name="T">The type of T.</typeparam>
+        /// <param name="list">The collection.</param>
+        /// <param name="predicate">The predicate.</param>
         [DebuggerStepThrough]
         public static void Remove<T>(this ICollection<T> list, Func<T, bool> predicate)
         {
@@ -44,15 +44,14 @@ namespace Fanex.Common.Extensions
         }
 
         /// <summary>
-        /// Removes items from a collection based on the condition you provide
+        /// Removes items from a collection based on the condition you provide.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="list"></param>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">The type of T.</typeparam>
+        /// <param name="list">The collection.</param>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>The collection after remove.</returns>
         [DebuggerStepThrough]
-        public static IEnumerable<T> RemoveDuplicates<T>(this ICollection<T> list
-            , Func<T, int> predicate)
+        public static IEnumerable<T> RemoveDuplicates<T>(this ICollection<T> list, Func<T, int> predicate)
         {
             var dict = new Dictionary<int, T>();
 
@@ -68,13 +67,14 @@ namespace Fanex.Common.Extensions
         }
 
         /// <summary>
-        /// Updates items from the collection using a modified version of this collection
-        /// . Useful in MVVM scenarios needing cancellable edition and delayed persistence
+        /// Updates items from the collection using a modified version of this collection.
+        /// Useful in MVVM scenarios needing cancellable edition and delayed persistence.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="originalCollection"></param>
-        /// <param name="updatedCollection"></param>
-         [DebuggerStepThrough]
+        /// <typeparam name="T">The type of T.</typeparam>
+        /// <param name="originalCollection">The original collection.</param>
+        /// <param name="updatedCollection">The updated collection.</param>
+        /// <exception cref="System.InvalidOperationException">Cannot update a read-only collection.</exception>
+        [DebuggerStepThrough]
         public static void UpdateCollection<T>(this ICollection<T> originalCollection, ICollection<T> updatedCollection)
         {
             if (originalCollection.IsReadOnly)

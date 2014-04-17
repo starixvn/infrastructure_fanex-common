@@ -1,18 +1,20 @@
-﻿//<copyright file="HttpRequestExtensions.cs" company="Nexcel Solutions Vietnam" >
+﻿// --------------------------------------------------------------------------
+// <copyright file="HttpRequestExtensions.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-//</copyright>
-//
-//<history>
-//	<change who="anders.le" date="2012.2.22">Created</change>
-//</history>
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="anders.le" date="2012.2.22">Created</change>
+// </history>
 
 namespace Fanex.Common.Extensions
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Web;
 
     /// <summary>
-    /// Summary description for HttpRequestExtension
+    /// The HttpRequest extension.
     /// </summary>
     public static class HttpRequestExtensions
     {
@@ -23,7 +25,7 @@ namespace Fanex.Common.Extensions
 
         public static string GetDomain(this HttpRequest request)
         {
-            return request.ServerVariables[ "server_name"];
+            return request.ServerVariables["server_name"];
         }
 
         public static string GetBrowser(this HttpRequest request)
@@ -37,25 +39,34 @@ namespace Fanex.Common.Extensions
         }
 
         /// <summary>
-        /// get value from 
+        /// Values the specified parameter name.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="parameterName"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">The type of T.</typeparam>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>The result.</returns>
+        /// <exception cref="System.InvalidOperationException">
+        /// Cannot call Request when HttpContext.Current is null.
+        /// </exception>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2100:CodeLineMustNotBeLongerThan", Justification = "Reviewed. Suppression is OK here.")]
         public static T Value<T>(string parameterName, T defaultValue) where T : IConvertible
         {
             if (HttpContext.Current == null)
+            {
                 throw new InvalidOperationException("Cannot call Request<T> when HttpContext.Current is null");
+            }
 
             HttpRequest request = HttpContext.Current.Request;
-
             string input;
-            if (request[parameterName] != null
-                && !string.IsNullOrEmpty(request[parameterName]))
+
+            if (request[parameterName] != null && !string.IsNullOrEmpty(request[parameterName]))
+            {
                 input = request[parameterName];
+            }
             else
+            {
                 return defaultValue;
+            }
 
             T value;
             try
@@ -66,6 +77,7 @@ namespace Fanex.Common.Extensions
             {
                 throw new InvalidOperationException(string.Format("Unable to convert query string parameter named '{0}' with value of '{1}' to type {2}", parameterName, input, typeof(T).FullName), ex);
             }
+
             return value;
         }
     }

@@ -1,11 +1,17 @@
+// --------------------------------------------------------------------------
+// <copyright file="DateTimeExtensions.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Edward.Nguyen" date="2014.4.17">Created</change>
+// </history>
+
 namespace Fanex.Common.Extensions
 {
-    using System;    
-    
-    using System.ComponentModel;
-    using System.Linq;
-    using System.Linq.Expressions;
+    using System;
     using System.Diagnostics;
+    using System.Linq.Expressions;
     using System.Text;
     using System.Threading;
 

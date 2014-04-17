@@ -1,17 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Fanex.Logging;
-using Microsoft.Practices.EnterpriseLibrary.Logging;
-using System.Timers;
+﻿// --------------------------------------------------------------------------
+// <copyright file="Program.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Edward.Nguyen" date="2014.4.17">Created</change>
+// </history>
 
 namespace ConsoleLogging
 {
-    class Program
+    using System;
+    using Fanex.Logging;
+
+    /// <summary>
+    /// The testing application.
+    /// </summary>
+    public class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Defines the entry point of the application.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        public static void Main(string[] args)
         {
             try
             {

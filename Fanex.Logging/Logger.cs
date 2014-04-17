@@ -12,22 +12,25 @@
 //  <change who="Anders" date="2011.12.20">Implement Singleton pattern</change>
 // </history>
 
-
-using System;
-using System.Diagnostics;
-using Microsoft.Practices.EnterpriseLibrary.Logging;
-using Fanex.Logging.Configuration;
-
 namespace Fanex.Logging
 {
+    using System;
+    using System.Diagnostics;
+    using Fanex.Logging.Configuration;
+    using Microsoft.Practices.EnterpriseLibrary.Logging;
+
+    /// <summary>
+    /// The logger class.
+    /// </summary>
     public sealed class Logger : ILogger
     {
+        private static readonly string DefaultLogCategory = LoggerConfiguration.Setting.DefaultCategory;
         private static volatile ILogger _logger;
         private static object syncRoot = new object();
 
         private Logger()
         {
-            LoggerConfiguration.Run();   
+            LoggerConfiguration.Run();
         }
 
         public static ILogger Log
@@ -51,15 +54,13 @@ namespace Fanex.Logging
 
         #region ILogger Members
 
-        private static readonly string DefaultLogCategory = LoggerConfiguration.Setting.DefaultCategory;
-
         #region Debug functions
 
         /// <summary>
-        /// Debug the specified format and category
+        /// Debugs the specified message.
         /// </summary>
-        /// <param name="message">the message</param>
-        /// <param name="category">the category</param>
+        /// <param name="message">The message.</param>
+        /// <param name="category">The category.</param>
         public void Debug(string message, string category)
         {
             WriteLog(message, category, LogLevel.Debug);
@@ -78,18 +79,18 @@ namespace Fanex.Logging
         /// Debugs the specified format.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="args">The args.</param>
+        /// <param name="args">The arguments.</param>
         public void Debug(string format, params object[] args)
         {
             Debug(string.Format(format, args));
         }
 
         /// <summary>
-        /// Debug specified format and cateogry
+        /// Debugs the specified format.
         /// </summary>
-        /// <param name="format">the format</param>
-        /// <param name="category">the category</param>
-        /// <param name="args">The args.</param>
+        /// <param name="format">The format.</param>
+        /// <param name="category">The category.</param>
+        /// <param name="args">The arguments.</param>
         public void Debug(string format, string category, params object[] args)
         {
             Debug(string.Format(format, args), category);
@@ -100,17 +101,17 @@ namespace Fanex.Logging
         #region Info functions
 
         /// <summary>
-        /// Info the specified message and category
+        /// Information the specified message.
         /// </summary>
-        /// <param name="mesaage">the message</param>
-        /// <param name="category">the category</param>
-        public void Info(string mesaage, string category)
+        /// <param name="message">The message.</param>
+        /// <param name="category">The category.</param>
+        public void Info(string message, string category)
         {
-            WriteLog(mesaage, category, LogLevel.Info);
+            WriteLog(message, category, LogLevel.Info);
         }
 
         /// <summary>
-        /// Infoes the specified message and default log category
+        /// The information message and default log category.
         /// </summary>
         /// <param name="message">The message.</param>
         public void Info(string message)
@@ -119,10 +120,10 @@ namespace Fanex.Logging
         }
 
         /// <summary>
-        /// Infoes the specified format.
+        /// Information the specified format.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="args">The args.</param>
+        /// <param name="args">The arguments.</param>
         public void Info(string format, params object[] args)
         {
             Info(string.Format(format, args));
@@ -138,10 +139,10 @@ namespace Fanex.Logging
         #region Warning functions
 
         /// <summary>
-        /// 
+        /// Warns the specified message.
         /// </summary>
-        /// <param name="message"></param>
-        /// <param name="category"></param>
+        /// <param name="message">The message.</param>
+        /// <param name="category">The category.</param>
         public void Warn(string message, string category)
         {
             WriteLog(message, category, LogLevel.Warn);
@@ -160,7 +161,7 @@ namespace Fanex.Logging
         /// Warns the specified format.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="args">The args.</param>
+        /// <param name="args">The arguments.</param>
         public void Warn(string format, params object[] args)
         {
             Warn(string.Format(format, args));
@@ -176,10 +177,10 @@ namespace Fanex.Logging
         #region Error functions
 
         /// <summary>
-        /// Wrire error with specified message and category
+        /// Errors the specified message.
         /// </summary>
-        /// <param name="message">the message</param>
-        /// <param name="category">the category</param>
+        /// <param name="message">The message.</param>
+        /// <param name="category">The category.</param>
         public void Error(string message, string category)
         {
             WriteLog(message, category, LogLevel.Error);
@@ -205,11 +206,11 @@ namespace Fanex.Logging
         }
 
         /// <summary>
-        /// Error the specifed message and category
+        /// Errors the specified message.
         /// </summary>
-        /// <param name="message"></param>
-        /// <param name="category"></param>
-        /// <param name="exception"></param>
+        /// <param name="message">The message.</param>
+        /// <param name="category">The category.</param>
+        /// <param name="exception">The exception.</param>
         public void Error(string message, string category, Exception exception)
         {
             Error(string.Format("{0}\n{1}", message, exception), category);
@@ -225,7 +226,7 @@ namespace Fanex.Logging
         }
 
         /// <summary>
-        /// Fatals the specified message.
+        /// Critical the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
         public void Critical(string message)
@@ -234,21 +235,21 @@ namespace Fanex.Logging
         }
 
         /// <summary>
-        /// Fatals the specified format.
+        /// Critical the specified format.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="args">The args.</param>
+        /// <param name="args">The arguments.</param>
         public void Critical(string format, params object[] args)
         {
             Critical(string.Format(format, args));
         }
 
         /// <summary>
-        /// Fatals the specified format.
+        /// Critical the specified format.
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="category">The category.</param>
-        /// <param name="args">The args</param>
+        /// <param name="args">The arguments.</param>
         public void Critical(string format, string category, params object[] args)
         {
             Critical(string.Format(format, args), category);
@@ -262,7 +263,7 @@ namespace Fanex.Logging
         /// Writes the log.
         /// </summary>
         /// <param name="message">The message.</param>
-        /// <param name="category"></param>
+        /// <param name="category">The category.</param>
         /// <param name="level">The level.</param>
         private static void WriteLog(string message, string category, LogLevel level)
         {
@@ -271,34 +272,31 @@ namespace Fanex.Logging
                 var severity = TraceEventType.Information;
                 switch (level)
                 {
-                    case (LogLevel.Debug):
+                    case LogLevel.Debug:
                         severity = TraceEventType.Verbose;
                         break;
-                    case (LogLevel.Warn):
+                    case LogLevel.Warn:
                         severity = TraceEventType.Warning;
                         break;
-                    case (LogLevel.Critical):
+                    case LogLevel.Critical:
                         severity = TraceEventType.Critical;
                         break;
-                    case (LogLevel.Error):
+                    case LogLevel.Error:
                         severity = TraceEventType.Error;
                         break;
                 }
 
-                //create log entry instance title temporarily set by value category
+                // Create log entry instance title temporarily set by value category
                 var logEntry = new LogEntry
-                                   {
-                                       Severity = severity
-                                       ,
-                                       Message = message
-                                       ,
-                                       Title = category
-                                   };
-
+                {
+                    Severity = severity,
+                    Message = message,
+                    Title = category
+                };
 
                 if (string.IsNullOrEmpty(category))
                 {
-                    //write log with default category
+                    // Write log with default category
                     WriteLog(message, level);
                 }
                 else
@@ -307,8 +305,6 @@ namespace Fanex.Logging
                 }
 
                 Microsoft.Practices.EnterpriseLibrary.Logging.Logger.Write(logEntry);
-
-
             }
             catch (Exception ex)
             {
@@ -317,17 +313,17 @@ namespace Fanex.Logging
         }
 
         /// <summary>
-        /// Write log with default category
+        /// Writes the log.
         /// </summary>
-        /// <param name="message"></param>
-        /// <param name="level"></param>
+        /// <param name="message">The message.</param>
+        /// <param name="level">The level.</param>
         private static void WriteLog(string message, LogLevel level)
         {
             WriteLog(message, DefaultLogCategory, level);
         }
 
         #endregion
-    }
-        #endregion
-}
 
+        #endregion
+    }
+}

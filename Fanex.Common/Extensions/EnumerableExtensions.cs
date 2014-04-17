@@ -1,18 +1,21 @@
-//<copyright file="EnumerableExtensions.cs" company="Nexcel Solutions Vietnam" >
+// --------------------------------------------------------------------------
+// <copyright file="EnumerableExtensions.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-//</copyright>
-//
-//<history>
-//	<change who="anders.le" date="2012.2.22">Created</change>
-//</history>
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="anders.le" date="2012.2.22">Created</change>
+// </history>
 
 namespace Fanex.Common.Extensions
 {
     using System;
-    using System.Linq;
     using System.Collections.Generic;
     using System.Diagnostics;
 
+    /// <summary>
+    /// The enumerable extension.
+    /// </summary>
     public static class EnumerableExtensions
     {
         [DebuggerStepThrough]
@@ -24,6 +27,12 @@ namespace Fanex.Common.Extensions
             }
         }
 
+        /// <summary>
+        /// Gets the first or default.
+        /// </summary>
+        /// <typeparam name="T">The type of T.</typeparam>
+        /// <param name="value">The value.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
         public static T GetFirstOrDefault<T>(this IEnumerable<T> value)
         {
@@ -44,7 +53,11 @@ namespace Fanex.Common.Extensions
         [DebuggerStepThrough]
         public static IEnumerable<T> Concat<T>(IEnumerable<T> target, T element)
         {
-            foreach (T e in target) yield return e;
+            foreach (T e in target)
+            {
+                yield return e;
+            }
+
             yield return element;
         }
     }
