@@ -16,9 +16,8 @@
 namespace Fanex.Caching
 {
     using System;
-    using System.Linq;
     using System.Collections.Generic;
-    using System.Collections.Concurrent;
+    using System.Linq;
     using System.Runtime.Caching;
     using SRC = System.Runtime.Caching;
 

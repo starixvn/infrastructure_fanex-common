@@ -32,7 +32,7 @@ namespace Fanex.Caching
         private static object syncRoot = new object();
 
         /// <summary>
-        /// contains a list of keys of current cache instance.
+        /// Contains a list of keys of current cache instance.
         /// </summary>
         private static volatile HashSet<string> listKey;
 
@@ -58,6 +58,19 @@ namespace Fanex.Caching
             }
         }
 
+        #region ICache Members
+
+        /// <summary>
+        /// Gets the number of item in current cache instance.
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                return CacheManager.Count;
+            }
+        }
+
         /// <summary>
         /// Gets the cache manager.
         /// </summary>
@@ -80,25 +93,12 @@ namespace Fanex.Caching
             }
         }
 
-        #region ICache Members
-
-        /// <summary>
-        /// Gets the number of item in current cache instance.
-        /// </summary>
-        public int Count
-        {
-            get
-            {
-                return CacheManager.Count;
-            }
-        }
-
         /// <summary>
         /// Determines whether cache contains the specified key.
         /// </summary>
-        /// <param name="key">The key.</param>
+        /// <param name="key">The string key.</param>
         /// <returns>
-        ///   <c>true</c> if [contains] [the specified key]; otherwise, <c>false</c>.
+        ///   <c>True</c> if [contains] [the specified key]; otherwise, <c>false</c>.
         /// </returns>
         public bool Contains(string key)
         {
@@ -108,9 +108,9 @@ namespace Fanex.Caching
         /// <summary>
         /// Gets cached value by the specified key.
         /// </summary>
-        /// <typeparam name="T">any .Net type</typeparam>
-        /// <param name="key">The key.</param>
-        /// <returns>T instance</returns>
+        /// <typeparam name="T">Any .Net type.</typeparam>
+        /// <param name="key">The string key.</param>
+        /// <returns>T instance.</returns>
         public T Get<T>(string key)
         {
             return (T)CacheManager.GetData(key);
@@ -136,10 +136,10 @@ namespace Fanex.Caching
         /// <summary>
         /// Sets the specified key.
         /// </summary>
-        /// <typeparam name="T">any .Net type</typeparam>
-        /// <param name="key">The key.</param>
+        /// <typeparam name="T">Any .Net type.</typeparam>
+        /// <param name="key">The string key.</param>
         /// <param name="value">The value.</param>
-        /// <param name="timeOut">default is 120s</param>
+        /// <param name="timeOut">Default is 120s.</param>
         public void Set<T>(string key, T value, int timeOut = 120)
         {
             DateTime absoluteExpiration = DateTime.Now.AddSeconds(timeOut);
@@ -153,12 +153,12 @@ namespace Fanex.Caching
         }
 
         /// <summary>
-        /// Set item type T to cache with sliding expiration
+        /// Set item type T to cache with sliding expiration.
         /// </summary>
-        /// <typeparam name="T">any .Net Type</typeparam>
-        /// <param name="key">valid key</param>
-        /// <param name="value">the value</param>
-        /// <param name="slidingExpiration">sliding expiration</param>
+        /// <typeparam name="T">Any .Net type.</typeparam>
+        /// <param name="key">Valid key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="slidingExpiration">Sliding expiration.</param>
         public void Set<T>(string key, T value, TimeSpan slidingExpiration)
         {
             SlidingTime slidingTime = new SlidingTime(slidingExpiration);
@@ -174,7 +174,7 @@ namespace Fanex.Caching
         /// <summary>
         /// Removes cache item by the specified key.
         /// </summary>
-        /// <param name="key">The key.</param>
+        /// <param name="key">The string key.</param>
         public void Remove(string key)
         {
             if (this.Contains(key))

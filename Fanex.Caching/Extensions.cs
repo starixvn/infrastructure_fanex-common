@@ -5,6 +5,7 @@
 // <history>
 //  <change who="anders.le" date="2012.4.3">Created</change>
 // </history>
+
 namespace Fanex.Caching
 {
     using System.Collections.Generic;
@@ -15,10 +16,10 @@ namespace Fanex.Caching
     internal static class Extensions
     {
         /// <summary>
-        /// Add an item to list, perform check duplicated item before adding
+        /// Add an item to list, perform check duplicated item before adding.
         /// </summary>
-        /// <param name="list">The list.</param>
-        /// <param name="key">The item.</param>
+        /// <param name="list">The collection.</param>
+        /// <param name="key">The string key.</param>
         public static void Set(this IList<string> list, string key)
         {
             if (!ReferenceEquals(list, null) && !string.IsNullOrWhiteSpace(key))
