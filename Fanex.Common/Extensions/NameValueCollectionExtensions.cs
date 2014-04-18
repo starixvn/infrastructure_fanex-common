@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Fanex.Common.Extensions
 {
@@ -830,6 +831,7 @@ namespace Fanex.Common.Extensions
             this.Value = value;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Reviewed.")]
         public static implicit operator Boolean(ConvertableString self)
         {
             if (self.Value == null) throw new KeyNotFoundException();
@@ -844,6 +846,7 @@ namespace Fanex.Common.Extensions
                 : null;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Reviewed.")]
         public static implicit operator Char(ConvertableString self)
         {
             if (self.Value == null) throw new KeyNotFoundException();
@@ -858,6 +861,7 @@ namespace Fanex.Common.Extensions
                 : null;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Reviewed.")]
         public static implicit operator SByte(ConvertableString self)
         {
             if (self.Value == null) throw new KeyNotFoundException();
@@ -872,6 +876,7 @@ namespace Fanex.Common.Extensions
                 : null;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Reviewed.")]
         public static implicit operator Byte(ConvertableString self)
         {
             if (self.Value == null) throw new KeyNotFoundException();
@@ -886,6 +891,7 @@ namespace Fanex.Common.Extensions
                 : null;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Reviewed.")]
         public static implicit operator Int16(ConvertableString self)
         {
             if (self.Value == null) throw new KeyNotFoundException();
@@ -900,6 +906,7 @@ namespace Fanex.Common.Extensions
                 : null;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Reviewed.")]
         public static implicit operator UInt16(ConvertableString self)
         {
             if (self.Value == null) throw new KeyNotFoundException();
@@ -914,6 +921,7 @@ namespace Fanex.Common.Extensions
                 : null;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Reviewed.")]
         public static implicit operator Int32(ConvertableString self)
         {
             if (self.Value == null) throw new KeyNotFoundException();
@@ -928,6 +936,7 @@ namespace Fanex.Common.Extensions
                 : null;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Reviewed.")]
         public static implicit operator UInt32(ConvertableString self)
         {
             if (self.Value == null) throw new KeyNotFoundException();
@@ -942,6 +951,7 @@ namespace Fanex.Common.Extensions
                 : null;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Reviewed.")]
         public static implicit operator Int64(ConvertableString self)
         {
             if (self.Value == null) throw new KeyNotFoundException();
@@ -956,6 +966,7 @@ namespace Fanex.Common.Extensions
                 : null;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Reviewed.")]
         public static implicit operator UInt64(ConvertableString self)
         {
             if (self.Value == null) throw new KeyNotFoundException();
@@ -970,6 +981,7 @@ namespace Fanex.Common.Extensions
                 : null;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Reviewed.")]
         public static implicit operator Single(ConvertableString self)
         {
             if (self.Value == null) throw new KeyNotFoundException();
@@ -984,6 +996,7 @@ namespace Fanex.Common.Extensions
                 : null;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Reviewed.")]
         public static implicit operator Double(ConvertableString self)
         {
             if (self.Value == null) throw new KeyNotFoundException();
@@ -998,6 +1011,7 @@ namespace Fanex.Common.Extensions
                 : null;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Reviewed.")]
         public static implicit operator Decimal(ConvertableString self)
         {
             if (self.Value == null) throw new KeyNotFoundException();
@@ -1012,6 +1026,7 @@ namespace Fanex.Common.Extensions
                 : null;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Reviewed.")]
         public static implicit operator DateTime(ConvertableString self)
         {
             if (self.Value == null) throw new KeyNotFoundException();
