@@ -17,7 +17,7 @@ namespace Fanex.Common.IO
     /// <summary>
     /// <see cref="http://www.codeproject.com/KB/cs/EnhancedFileSysWatcher.aspx"/>
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
+    [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Reviewed.")]
     public class FileSystemWatcherEx : FileSystemWatcher, IDisposable
     {
         #region Private Members
@@ -36,21 +36,21 @@ namespace Fanex.Common.IO
         #region Constructors
 
         // Constructors delegate to the base class constructors and call private InitializeMember method.
-        [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
+        [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands", Justification = "Reviewed.")]
         public FileSystemWatcherEx()
             : base()
         {
             InitializeMembers();
         }
 
-        [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
+        [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands", Justification = "Reviewed.")]
         public FileSystemWatcherEx(string path)
             : base(path)
         {
             InitializeMembers();
         }
 
-        [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
+        [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands", Justification = "Reviewed.")]
         public FileSystemWatcherEx(string path, string filter)
             : base(path, filter)
         {
@@ -102,7 +102,7 @@ namespace Fanex.Common.IO
 
         #region IDisposable Members
 
-        [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
+        [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "Reviewed.")]
         public new void Dispose()
         {
             base.Dispose();
@@ -155,7 +155,7 @@ namespace Fanex.Common.IO
         /// FilterRecentEvents is set to true, _lastFileEvent dictionary is initialized
         /// We subscribe to the base class events.
         /// </summary>
-        [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
+        [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands", Justification = "Reviewed.")]
         private void InitializeMembers()
         {
             Interval = 100;
