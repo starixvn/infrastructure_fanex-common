@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Common", "Fanex.Commo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Caching", "Fanex.Caching\Fanex.Caching.csproj", "{B9FF7938-4839-499F-B21C-EC2C1A9177C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CachingUnitTest", "Fanex.CachingUnitTest\Fanex.CachingUnitTest.csproj", "{C9FA1EFD-D477-4527-8D63-39DD66D1E334}"
-EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Fanex2.vsmdi
@@ -67,15 +65,6 @@ Global
 		{B9FF7938-4839-499F-B21C-EC2C1A9177C3}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{B9FF7938-4839-499F-B21C-EC2C1A9177C3}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{B9FF7938-4839-499F-B21C-EC2C1A9177C3}.Release|x86.ActiveCfg = Release|Any CPU
-		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Debug|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
-		{C9FA1EFD-D477-4527-8D63-39DD66D1E334}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +74,5 @@ Global
 		{675A57E8-E268-4970-AF8A-AE0387795361} = {EEA8CB8B-7E9A-4E8C-8F49-D3E222DF5B23}
 		{1766DA24-D998-494B-B850-1DA947A5AC4C} = {DDE2F699-3AC2-48E3-AAFB-714A299FC719}
 		{B9FF7938-4839-499F-B21C-EC2C1A9177C3} = {B80B8AB7-1AB9-4F63-A40E-BFB406C9F6FE}
-		{C9FA1EFD-D477-4527-8D63-39DD66D1E334} = {B80B8AB7-1AB9-4F63-A40E-BFB406C9F6FE}
 	EndGlobalSection
 EndGlobal
