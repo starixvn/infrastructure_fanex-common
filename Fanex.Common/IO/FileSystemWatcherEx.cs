@@ -40,14 +40,14 @@ namespace Fanex.Common.IO
             InitializeMembers();
         }
 
-        public FileSystemWatcherEx(string Path)
-            : base(Path)
+        public FileSystemWatcherEx(string path)
+            : base(path)
         {
             InitializeMembers();
         }
 
-        public FileSystemWatcherEx(string Path, string Filter)
-            : base(Path, Filter)
+        public FileSystemWatcherEx(string path, string filter)
+            : base(path, filter)
         {
             InitializeMembers();
         }
@@ -68,6 +68,41 @@ namespace Fanex.Common.IO
         public new event RenamedEventHandler Renamed;
 
         #endregion Events
+
+        #region Properties
+
+        public bool FilterRecentEvents { get; set; }
+
+        #endregion Properties
+
+        #region Public Properties
+
+        public int Interval
+        {
+            get
+            {
+                return _interval;
+            }
+
+            set
+            {
+                _interval = value;
+
+                // Set time span based on the value passed
+                _recentTimeSpan = new TimeSpan(0, 0, 0, 0, value);
+            }
+        }
+
+        #endregion Public Properties
+
+        #region IDisposable Members
+
+        public new void Dispose()
+        {
+            base.Dispose();
+        }
+
+        #endregion IDisposable Members
 
         #region Protected Methods
 
@@ -131,33 +166,33 @@ namespace Fanex.Common.IO
         /// for a particular file. If that event occurred within the specified time span
         /// it returns true, else false.
         /// </summary>
-        /// <param name="FileName">The filename to be checked.</param>
+        /// <param name="fileName">The filename to be checked.</param>
         /// <returns>True if an event has occurred within the specified interval, False otherwise.</returns>
-        private bool HasAnotherFileEventOccuredRecently(string FileName)
+        private bool HasAnotherFileEventOccuredRecently(string fileName)
         {
             bool retVal = false;
 
             // Check dictionary only if user wants to filter recent events otherwise return Value stays False
             if (FilterRecentEvents)
             {
-                if (_lastFileEvent.ContainsKey(FileName))
+                if (_lastFileEvent.ContainsKey(fileName))
                 {
                     // If dictionary contains the filename, check how much time has elapsed
                     // since the last event occured. If the timespan is less that the
                     // specified interval, set return value to true
                     // and store current datetime in dictionary for this file
-                    DateTime lastEventTime = _lastFileEvent[FileName];
+                    DateTime lastEventTime = _lastFileEvent[fileName];
                     DateTime currentTime = DateTime.Now;
                     TimeSpan timeSinceLastEvent = currentTime - lastEventTime;
                     retVal = timeSinceLastEvent < _recentTimeSpan;
-                    _lastFileEvent[FileName] = currentTime;
+                    _lastFileEvent[fileName] = currentTime;
                 }
                 else
                 {
                     // If dictionary does not contain the filename,
                     // no event has occured in past for this file, so set return value to false
                     // and annd filename alongwith current datetime to the dictionary
-                    _lastFileEvent.Add(FileName, DateTime.Now);
+                    _lastFileEvent.Add(fileName, DateTime.Now);
                     retVal = false;
                 }
             }
@@ -204,43 +239,5 @@ namespace Fanex.Common.IO
         #endregion FileSystemWatcher EventHandlers
 
         #endregion Private Methods
-
-        #region Public Properties
-
-        /// <summary>
-        /// Interval, in milliseconds, within which events are considered "recent".
-        /// </summary>
-        public int Interval
-        {
-            get
-            {
-                return _interval;
-            }
-
-            set
-            {
-                _interval = value;
-
-                // Set time span based on the value passed
-                _recentTimeSpan = new TimeSpan(0, 0, 0, 0, value);
-            }
-        }
-
-        /// <summary>
-        /// Allows user to set whether to filter recent events. If this is set a false,
-        /// this class behaves like System.IO.FileSystemWatcher class.
-        /// </summary>
-        public bool FilterRecentEvents { get; set; }
-
-        #endregion Public Properties
-
-        #region IDisposable Members
-
-        public new void Dispose()
-        {
-            base.Dispose();
-        }
-
-        #endregion IDisposable Members
     }
 }

@@ -64,6 +64,11 @@ namespace Fanex.Common.Extensions
             return string.Format(CultureInfo.CurrentCulture, target, args);
         }
 
+        /// <summary>
+        /// Hashes the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>The string result.</returns>
         [DebuggerStepThrough]
         public static string Hash(this string target)
         {
@@ -81,12 +86,12 @@ namespace Fanex.Common.Extensions
         [DebuggerStepThrough]
         public static string WrapAt(this string target, int index)
         {
-            const int dotCount = 3;
+            const int DotCount = 3;
 
             Check.Argument.IsNotEmpty(target, "target");
             Check.Argument.IsNotNegativeOrZero(index, "index");
 
-            return (target.Length <= index) ? target : string.Concat(target.Substring(0, index - dotCount), new string('.', dotCount));
+            return (target.Length <= index) ? target : string.Concat(target.Substring(0, index - DotCount), new string('.', DotCount));
         }
 
         [DebuggerStepThrough]
@@ -95,6 +100,11 @@ namespace Fanex.Common.Extensions
             return StripHtmlExpression.Replace(target, string.Empty);
         }
 
+        /// <summary>
+        /// To the unique identifier.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>The GUID result.</returns>
         [DebuggerStepThrough]
         public static Guid ToGuid(this string target)
         {
@@ -118,6 +128,13 @@ namespace Fanex.Common.Extensions
             return result;
         }
 
+        /// <summary>
+        /// To the ENUM.
+        /// </summary>
+        /// <typeparam name="T">The type of T.</typeparam>
+        /// <param name="target">The target.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
         public static T ToEnum<T>(this string target, T defaultValue) where T : IComparable, IFormattable
         {
@@ -137,6 +154,11 @@ namespace Fanex.Common.Extensions
             return convertedValue;
         }
 
+        /// <summary>
+        /// To the legal URL.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
         public static string ToLegalUrl(this string target)
         {
@@ -200,12 +222,7 @@ namespace Fanex.Common.Extensions
             oldValues.ForEach(oldValue => target = target.Replace(oldValue, newValue));
             return target;
         }
-
-        /// <summary>
-        /// Same as String.IsNullOrEmpty except that
-        /// it captures the Empty state for whitespace
-        /// strings by Trimming first.
-        /// </summary>
+      
         [DebuggerStepThrough]
         public static bool IsNullOrTrimEmpty(this string value)
         {
@@ -224,11 +241,7 @@ namespace Fanex.Common.Extensions
         {
             return value.Trim().Length;
         }
-
-        /// <summary>
-        /// Returns the matched string from the regex pattern. The
-        /// groupName is for named group match values in the form (?<name>group).
-        /// </summary>
+        
         [DebuggerStepThrough]
         public static string RegexMatch(this string value, string pattern, RegexOptions options, string groupName)
         {
@@ -260,9 +273,6 @@ namespace Fanex.Common.Extensions
             return RegexMatch(value, pattern, RegexOptions.None, groupName);
         }
 
-        /// <summary>
-        /// Returns true if there is a match from the regex pattern.
-        /// </summary>
         [DebuggerStepThrough]
         public static bool IsRegexMatch(this string value, string pattern, RegexOptions options)
         {
@@ -274,13 +284,7 @@ namespace Fanex.Common.Extensions
         {
             return value.IsRegexMatch(pattern, RegexOptions.None);
         }
-
-        /// <summary>
-        /// Returns a string where matching patterns are replaced by the replacement string.
-        /// </summary>
-        /// <param name="pattern">The regex pattern for matching the items to be replaced.</param>
-        /// <param name="replacement">The string to replace matching items.</param>
-        /// <returns>The result.</returns>
+       
         [DebuggerStepThrough]
         public static string RegexReplace(this string value, string pattern, string replacement, RegexOptions options)
         {
@@ -293,44 +297,32 @@ namespace Fanex.Common.Extensions
             return Regex.Replace(value, pattern, replacement, RegexOptions.None);
         }
 
-        /// <summary>
-        /// Replace function string.Format.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="args"></param>
-        /// <returns></returns>
         [DebuggerStepThrough]
         public static string Format(this string value, params object[] args)
         {
             return string.Format(value, args);
         }
 
-        /// <summary>
-        /// Replace for substring, but shorter format.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="length"></param>
-        /// <returns></returns>
         [DebuggerStepThrough]
         public static string Limit(this string value, int length)
         {
             if (length > 0)
             {
-                int sLength = value.Length;
-                return (sLength > length) ? value.Substring(0, length) : value;
+                int stringLength = value.Length;
+                return (stringLength > length) ? value.Substring(0, length) : value;
             }
 
             return value;
         }
 
         /// <summary>
-        /// Indicates whether the current string matches the supplied wildcard pattern.  Behaves the same
-        /// as VB's "Like" Operator.
+        /// Indicates whether the current string matches the supplied wildcard pattern.
+        /// Behaves the same as VB's "Like" Operator.
+        /// <see cref="http://msdn.microsoft.com/en-us/library/swf8kaxw(v=VS.100).aspx"/>
         /// </summary>
         /// <param name="s">The string instance where the extension method is called.</param>
         /// <param name="wildcardPattern">The wildcard pattern to match.  Syntax matches VB's Like operator.</param>
-        /// <returns>true if the string matches the supplied pattern, false otherwise.</returns>
-        /// <remarks>See http://msdn.microsoft.com/en-us/library/swf8kaxw(v=VS.100).aspx</remarks>
+        /// <returns>True if the string matches the supplied pattern, false otherwise.</returns>
         public static bool IsLike(this string s, string wildcardPattern)
         {
             if (s == null || string.IsNullOrEmpty(wildcardPattern))
