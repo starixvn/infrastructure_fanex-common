@@ -6,6 +6,7 @@
  * licensed under Microsoft Public License(Ms-PL)
  * http://implicitquerystring.codeplex.com/
  *--------------------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -107,7 +108,7 @@ namespace Fanex.Common.Extensions
             return (T)Enum.Parse(typeof(T), converter == null ? value : converter(value), ignoreCase);
         }
 
-        /// <summary>        
+        /// <summary>
         /// <para>Parse value.</para>
         /// <para>If fail parsing or key not found then return defaultValue.</para>
         /// </summary>
@@ -800,7 +801,7 @@ namespace Fanex.Common.Extensions
         }
 
         // for .NET 3.5 compatibility
-        static bool TryParsePrivate<T>(string value, bool ignoreCase, out T result)
+        private static bool TryParsePrivate<T>(string value, bool ignoreCase, out T result)
         {
             try
             {
@@ -821,7 +822,7 @@ namespace Fanex.Common.Extensions
     /// </summary>
     public struct ConvertableString
     {
-        readonly string Value;
+        private readonly string Value;
 
         public ConvertableString(string value)
         {

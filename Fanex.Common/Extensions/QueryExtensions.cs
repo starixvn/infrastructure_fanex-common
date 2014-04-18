@@ -1,10 +1,11 @@
-﻿//<copyright file="QueryExtensions.cs" company="Nexcel Solutions Vietnam" >
+﻿// --------------------------------------------------------------------------
+// <copyright file="QueryExtensions.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-//</copyright>
-//
-//<history>
-//	<change who="anders.le" date="2012.2.22">Created</change>
-//</history>
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="anders.le" date="2012.2.22">Created</change>
+// </history>
 
 namespace Fanex.Common.Extensions
 {
@@ -14,7 +15,7 @@ namespace Fanex.Common.Extensions
     public static class QueryExtensions
     {
         /// <summary>
-        /// Generic function get value from query string 
+        /// Generic function get value from query string
         /// and automatically convert to default value of typeof(T)
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -22,19 +23,14 @@ namespace Fanex.Common.Extensions
         /// <returns></returns>
         public static T Value<T>(string parameterName) where T : IConvertible
         {
-
             if (HttpContext.Current == null)
                 throw new InvalidOperationException("Cannot call Query<T> when HttpContext.Current is null");
-
-            //if (string.IsNullOrEmpty(HttpContext.Current.Request[parameterName]))
-            //    throw new InvalidOperationException(string.Format("Expected query string or form parameter named '{0}' to exist", parameterName));
 
             return Value(parameterName, default(T));
         }
 
-
         /// <summary>
-        /// get value from 
+        /// get value from
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="parameterName"></param>

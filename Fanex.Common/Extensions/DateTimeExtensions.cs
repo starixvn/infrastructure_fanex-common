@@ -122,41 +122,56 @@ namespace Fanex.Common.Extensions
         }
     }
 
-
     public enum DateTimeFormat
     {
         [StringValue("unknown")]
         UnknownSpecific = 0,
+
         [StringValue("d")]
         ShortDate = 1,
+
         [StringValue("D")]
         LongDate = 2,
+
         [StringValue("t")]
         ShortTime = 3,
+
         [StringValue("T")]
         LongTime = 4,
+
         [StringValue("f")]
         FullShortDateTime = 5,
+
         [StringValue("F")]
         FullLongDateTime = 6,
+
         [StringValue("g")]
         GeneralShortDateTime = 7,
+
         [StringValue("G")]
         GeneralLongDateTime = 8,
+
         [StringValue("m")]
         MonthDayLowerCase = 9,
+
         [StringValue("M")]
         MonthDayUpperCase = 10,
+
         [StringValue("r")]
         Rfc1123LowerCase = 11,
+
         [StringValue("R")]
         Rfc1123UpperCase = 12,
+
         [StringValue("s")]
         SortableDateTimeIso8601 = 13,
+
         [StringValue("U")]
         UniversalSortableDateTime = 14,
+
         [StringValue("y")]
         YearMonthLowerCase = 15,
+
         [StringValue("Y")]
         YearMonthUpperCase = 16
     }

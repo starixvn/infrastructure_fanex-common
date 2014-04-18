@@ -1,14 +1,16 @@
-﻿//<copyright file="ObjectExtensions.cs" company="Nexcel Solutions Vietnam" >
+﻿// --------------------------------------------------------------------------
+// <copyright file="ObjectExtensions.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-//</copyright>
-//
-//<history>
-//	<change who="anders.le" date="2012.2.22">Created</change>
-//</history>
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="anders.le" date="2012.2.22">Created</change>
+// </history>
+
 namespace Fanex.Common.Extensions
 {
-    using System.Diagnostics;
     using System;
+    using System.Diagnostics;
     using System.Linq;
     using System.Text;
 
@@ -36,7 +38,6 @@ namespace Fanex.Common.Extensions
             return item as T;
         }
 
-
         /// <summary>
         /// Checks if object is any of provided values separated by comma
         /// <example>
@@ -54,21 +55,21 @@ namespace Fanex.Common.Extensions
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         [DebuggerStepThrough()]
         public static bool IsNullOrDBNull(this object item)
         {
-            return (item == null || item.GetType() == typeof(DBNull));             
+            return (item == null || item.GetType() == typeof(DBNull));
         }
 
         /// <summary>
         /// if the object this method is called on is not null, runs the given function and returns the value.
         /// if the object is null, returns default(TResult)
         /// <example>
-        /// var username = HttpContext.Current.IfNotNull( ctx => ctx.User.IfNotNull( user => user.Identity.IfNotNull( iden => iden.Name ) 
+        /// var username = HttpContext.Current.IfNotNull( ctx => ctx.User.IfNotNull( user => user.Identity.IfNotNull( iden => iden.Name )
         /// </example>
         /// </summary>
         [DebuggerStepThrough()]
@@ -99,16 +100,15 @@ namespace Fanex.Common.Extensions
             for (int p = 0; p < props.Length; p++)
                 builder.Append(func(obj, props[p]) + delimiter.ToString());
 
-            //Remove the last character, the last delimiter
+            // Remove the last character, the last delimiter
             if (builder.Length > 0)
                 return builder.ToString().Remove(builder.ToString().Length - 1);
 
             return null;
         }
 
-
         /// <summary>
-        /// Equals method that lets you specify on what property 
+        /// Equals method that lets you specify on what property
         /// or field value you want to compare an object on. Also compares the object types.
         /// Useful to use in an overridden Equals method of an object.
         /// </summary>
@@ -123,123 +123,5 @@ namespace Fanex.Common.Extensions
         {
             return obj1 is T && selector(obj).Equals(selector((T)obj1));
         }
-
-        ///// <summary>
-        ///// if object type in T is null or DBNull.Value, return default(T)  
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="item"></param>
-        ///// <returns></returns>
-        //[DebuggerStepThrough()]
-        //public static T To<T>(this object item)
-        //{
-        //    if (item != null && item != DBNull.Value)
-        //    {
-        //        return (T)Convert.ChangeType(item, typeof(T));
-        //    }
-
-        //    return default(T);
-        //}
-
-        ///// <summary>
-        ///// <see cref="To"/>
-        ///// </summary>
-        ///// <param name="item"></param>
-        ///// <returns></returns>
-        //[DebuggerStepThrough()]
-        //public static int ToInt(this object item)
-        //{
-        //    if (item != null && item != DBNull.Value)
-        //    {
-        //        return int.Parse(item.ToString());
-        //    }
-        //    return 0;
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="item"></param>
-        ///// <returns></returns>
-        //[DebuggerStepThrough()]
-        //public static bool ToBool(this object item)
-        //{
-        //    if (item != null && item != DBNull.Value)
-        //    {
-        //        return bool.Parse(item.ToString());
-        //    }
-        //    return false;
-        //}
-
-        //[DebuggerStepThrough()]
-        //public static bool ToBool(this object item, bool defaultValue)
-        //{
-        //    if (item != null && item != DBNull.Value)
-        //    {
-        //        return bool.Parse(item.ToString());
-        //    }
-        //    return defaultValue;
-        //}
-
-        //[DebuggerStepThrough()]
-        //public static decimal ToDecimal(this object item)
-        //{
-        //    if (item != null && item != DBNull.Value)
-        //    {
-        //        return decimal.Parse(item.ToString());
-        //    }
-        //    return 0;
-        //}
-
-        //[DebuggerStepThrough()]
-        //public static Guid ToGuid(this object item)
-        //{
-        //    if (item != null && item != DBNull.Value)
-        //    {
-        //        return Guid.Parse(item.ToString());
-        //    }
-        //    return new Guid();
-        //}
-
-        //[DebuggerStepThrough()]
-        //public static DateTime ToDateTime(this object item)
-        //{
-        //    if (item != null && item != DBNull.Value)
-        //    {
-        //        return DateTime.Parse(item.ToString());
-        //    }
-        //    return DateTime.MinValue;
-        //}
-
-        //[DebuggerStepThrough()]
-        //public static char ToChar(this object item)
-        //{
-        //    if (item != null && item != DBNull.Value)
-        //    {
-        //        return char.Parse(item.ToString());
-        //    }
-        //    return char.MinValue;
-        //}
-
-        //[DebuggerStepThrough()]
-        //public static Byte[] ToByteArray(this object item)
-        //{           
-        //    return To<Byte[]>(item);
-        //}
-
-        ///// <summary>
-        ///// If object item in type T equal null, return string empty
-        ///// </summary>
-        ///// <param name="item"></param>
-        ///// <returns></returns>
-        //[DebuggerStepThrough()]
-        //public static string ToString2(this object item)
-        //{
-        //    if (item != null && item != DBNull.Value)
-        //    {
-        //        return item.ToString();
-        //    }
-        //    return string.Empty;
-        //}
     }
 }

@@ -7,11 +7,8 @@
 namespace Fanex.Common.Extensions
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Reflection;
     using System.Collections;
+    using System.Reflection;
 
     /// <summary>
     /// Helper class for working with 'extended' enums using <see cref="StringValueAttribute"/> attributes.
@@ -49,7 +46,7 @@ namespace Fanex.Common.Extensions
                 enumType = (Enum)Enum.Parse(_enumType, valueName);
                 stringValue = GetStringValue(enumType);
             }
-            catch (Exception) { }//Swallow!
+            catch (Exception) { } // Swallow!
 
             return stringValue;
         }
@@ -61,14 +58,13 @@ namespace Fanex.Common.Extensions
         public Array GetStringValues()
         {
             ArrayList values = new ArrayList();
-            //Look for our string value associated with fields in this enum
+            // Look for our string value associated with fields in this enum
             foreach (FieldInfo fi in _enumType.GetFields())
             {
-                //Check for our custom attribute
+                // Check for our custom attribute
                 StringValueAttribute[] attrs = fi.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
                 if (attrs.Length > 0)
                     values.Add(attrs[0].Value);
-
             }
 
             return values.ToArray();
@@ -82,18 +78,16 @@ namespace Fanex.Common.Extensions
         {
             Type underlyingType = Enum.GetUnderlyingType(_enumType);
             ArrayList values = new ArrayList();
-            //Look for our string value associated with fields in this enum
+            // Look for our string value associated with fields in this enum
             foreach (FieldInfo fi in _enumType.GetFields())
             {
-                //Check for our custom attribute
+                // Check for our custom attribute
                 StringValueAttribute[] attrs = fi.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
                 if (attrs.Length > 0)
                     values.Add(new DictionaryEntry(Convert.ChangeType(Enum.Parse(_enumType, fi.Name), underlyingType), attrs[0].Value));
-
             }
 
             return values;
-
         }
 
         /// <summary>
@@ -126,7 +120,7 @@ namespace Fanex.Common.Extensions
             get { return _enumType; }
         }
 
-        #endregion
+        #endregion Instance implementation
 
         #region Static implementation
 
@@ -144,7 +138,7 @@ namespace Fanex.Common.Extensions
                 output = (_stringValues[value] as StringValueAttribute).Value;
             else
             {
-                //Look for our 'StringValueAttribute' in the field's custom attributes
+                // Look for our 'StringValueAttribute' in the field's custom attributes
                 FieldInfo fi = type.GetField(value.ToString());
                 StringValueAttribute[] attrs = fi.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
                 if (attrs.Length > 0)
@@ -152,10 +146,8 @@ namespace Fanex.Common.Extensions
                     _stringValues.Add(value, attrs[0]);
                     output = attrs[0].Value;
                 }
-
             }
             return output;
-
         }
 
         /// <summary>
@@ -184,15 +176,15 @@ namespace Fanex.Common.Extensions
             if (!type.IsEnum)
                 throw new ArgumentException(String.Format("Supplied type must be an Enum.  Type was {0}", type.ToString()));
 
-            //Look for our string value associated with fields in this enum
+            // Look for our string value associated with fields in this enum
             foreach (FieldInfo fi in type.GetFields())
             {
-                //Check for our custom attribute
+                // Check for our custom attribute
                 StringValueAttribute[] attrs = fi.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
                 if (attrs.Length > 0)
                     enumStringValue = attrs[0].Value;
 
-                //Check for equality then select actual enum value.
+                // Check for equality then select actual enum value.
                 if (string.Compare(enumStringValue, stringValue, ignoreCase) == 0)
                 {
                     output = Enum.Parse(type, fi.Name);
@@ -226,10 +218,8 @@ namespace Fanex.Common.Extensions
             return Parse(enumType, stringValue, ignoreCase) != null;
         }
 
-        #endregion
+        #endregion Static implementation
     }
-
-
 
     #region Class StringValueAttribute
 
@@ -259,5 +249,5 @@ namespace Fanex.Common.Extensions
         }
     }
 
-    #endregion
+    #endregion Class StringValueAttribute
 }

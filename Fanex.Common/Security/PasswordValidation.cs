@@ -9,11 +9,13 @@
 
 namespace Fanex.Security
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Text.RegularExpressions;
 
     /// <summary>
     /// The password validation class.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2100:CodeLineMustNotBeLongerThan", Justification = "Reviewed. Suppression is OK here.")]
     public class PasswordValidation
     {
         private static Regex passwordRule1 = new Regex(@"^(?=.*\d).{8,100}$");
@@ -49,6 +51,7 @@ namespace Fanex.Security
         /// </summary>
         /// <param name="password">The password string.</param>
         /// <returns>The result.</returns>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed.")]
         public static bool CheckValidMemberPassword(string password)
         {
             return passwordMemberRule.Match(password).Success && notWhitespace.Match(password).Success;

@@ -1,22 +1,23 @@
-﻿//<copyright file="StringExtensions.cs" company="Nexcel Solutions Vietnam" >
+﻿// --------------------------------------------------------------------------
+// <copyright file="StringExtensions.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-//</copyright>
-//
-//<history>
-//	<change who="anders.le" date="2012.2.24">Created</change>
-//</history>
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="anders.le" date="2012.2.24">Created</change>
+// </history>
 
 namespace Fanex.Common.Extensions
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Globalization;
     using System.Security.Cryptography;
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Web;
     using Fanex.Common.Helper;
-    using System.Globalization;
 
     public static class StringExtensions
     {
@@ -105,7 +106,7 @@ namespace Fanex.Common.Extensions
 
                     result = new Guid(base64);
                 }
-                catch(FormatException)
+                catch (FormatException)
                 {
                 }
             }
@@ -122,7 +123,7 @@ namespace Fanex.Common.Extensions
             {
                 try
                 {
-                    convertedValue = (T) Enum.Parse(typeof(T), target.Trim(), true);
+                    convertedValue = (T)Enum.Parse(typeof(T), target.Trim(), true);
                 }
                 catch (ArgumentException)
                 {
@@ -216,10 +217,9 @@ namespace Fanex.Common.Extensions
             return value.Trim().Length;
         }
 
-
         /// <summary>
         /// Returns the matched string from the regex pattern. The
-        /// groupName is for named group match values in the form (?<name>group).       
+        /// groupName is for named group match values in the form (?<name>group).
         /// </summary>
         [DebuggerStepThrough]
         public static string RegexMatch(this string value, string pattern, RegexOptions options, string groupName)
@@ -280,7 +280,6 @@ namespace Fanex.Common.Extensions
         {
             return Regex.Replace(value, pattern, replacement, RegexOptions.None);
         }
-
 
         /// <summary>
         /// replace function string.Format
@@ -345,6 +344,5 @@ namespace Fanex.Common.Extensions
             }
             return result;
         }
-
     }
 }
