@@ -11,16 +11,18 @@ namespace Fanex.Common.IO
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
 
     /// <summary>
     /// <see cref="http://www.codeproject.com/KB/cs/EnhancedFileSysWatcher.aspx"/>
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public class FileSystemWatcherEx : FileSystemWatcher, IDisposable
     {
         #region Private Members
 
-        // This Dictionary keeps the track of when an event occured last for a particular file.
+        // This Dictionary keeps the track of when an event occurred last for a particular file.
         private Dictionary<string, DateTime> _lastFileEvent;
 
         // Interval in Millisecond.
@@ -34,18 +36,21 @@ namespace Fanex.Common.IO
         #region Constructors
 
         // Constructors delegate to the base class constructors and call private InitializeMember method.
+        [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
         public FileSystemWatcherEx()
             : base()
         {
             InitializeMembers();
         }
 
+        [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
         public FileSystemWatcherEx(string path)
             : base(path)
         {
             InitializeMembers();
         }
 
+        [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
         public FileSystemWatcherEx(string path, string filter)
             : base(path, filter)
         {
@@ -97,6 +102,7 @@ namespace Fanex.Common.IO
 
         #region IDisposable Members
 
+        [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
         public new void Dispose()
         {
             base.Dispose();
@@ -149,6 +155,7 @@ namespace Fanex.Common.IO
         /// FilterRecentEvents is set to true, _lastFileEvent dictionary is initialized
         /// We subscribe to the base class events.
         /// </summary>
+        [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
         private void InitializeMembers()
         {
             Interval = 100;
