@@ -1,5 +1,5 @@
 ﻿// <copyright file="MemCache.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved. 
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 //
 // <summary>
@@ -25,28 +25,38 @@ namespace Fanex.Caching
     using Enyim.Caching.Memcached;
 
     /// <summary>
-    ///   <example>http://www.couchbase.com/develop/net/current</example>
-    /// COUCHBASE - MEMCACHE implementation.
+    /// COUCHBASE - MEMCACHE implementation.<see cref="http://www.couchbase.com/develop/net/current"/>
     /// </summary>
     internal class MemCache : ICache
     {
         /// <summary>
-        /// couchbase cache client singleton instance
+        /// COUCHBASE cache client singleton instance.
         /// </summary>
         private static volatile CouchbaseClient couchbaseClient;
 
         /// <summary>
-        /// use to double check when creating singleton instance
+        /// Use to double check when creating singleton instance.
         /// </summary>
         private static object syncRoot = new object();
 
         /// <summary>
-        /// contains a list of keys of current cache instance
+        /// Contains a list of keys of current cache instance.
         /// </summary>
         private static volatile HashSet<string> listKey;
 
         /// <summary>
-        /// Gets all keys in current cache instance
+        /// Gets the number of item in current cache instance.
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                return this.Keys.Count;
+            }
+        }
+
+        /// <summary>
+        /// Gets all keys in current cache instance.
         /// </summary>
         public HashSet<string> Keys
         {
@@ -90,10 +100,10 @@ namespace Fanex.Caching
         }
 
         /// <summary>
-        /// Create new instance COUCHBASECLIENT
-        /// <para>bucketname is null, use default bucket get from configuration</para>
+        /// Create new instance COUCHBASECLIENT.
+        /// <para>BUCKETNAME is null, use default bucket get from configuration.</para>
         /// </summary>
-        /// <param name="bucketName">if bucket name is empty get default bucket name from configuration</param>
+        /// <param name="bucketName">If bucket name is empty get default bucket name from configuration.</param>
         public static void UseBucket(string bucketName = "")
         {
             couchbaseClient = string.IsNullOrWhiteSpace(bucketName)
@@ -104,22 +114,11 @@ namespace Fanex.Caching
         #region ICache Members
 
         /// <summary>
-        /// Gets the number of item in current cache instance
-        /// </summary>
-        public int Count
-        {
-            get
-            {
-                return this.Keys.Count;
-            }
-        }
-
-        /// <summary>
         /// Determines whether cache contains the specified key.
         /// </summary>
-        /// <param name="key">The key.</param>
+        /// <param name="key">The string key.</param>
         /// <returns>
-        ///   <c>true</c> if [contains] [the specified key]; otherwise, <c>false</c>.
+        ///   <c>True</c> if [contains] [the specified key]; otherwise, <c>false</c>.
         /// </returns>
         public bool Contains(string key)
         {
@@ -129,10 +128,10 @@ namespace Fanex.Caching
         /// <summary>
         /// Gets cache item by the specified key.
         /// </summary>
-        /// <typeparam name="T">Type of cache item</typeparam>
-        /// <param name="key">The key.</param>
+        /// <typeparam name="T">Type of cache item.</typeparam>
+        /// <param name="key">The string key.</param>
         /// <returns>
-        /// cache item
+        /// The cache item.
         /// </returns>
         public T Get<T>(string key)
         {
@@ -142,13 +141,13 @@ namespace Fanex.Caching
 
         /// <summary>
         /// Get cache item by specified key, and cast to type T
-        /// if cast failed return out T
+        /// if cast failed return out T.
         /// </summary>
-        /// <typeparam name="T">Type of cache item</typeparam>
-        /// <param name="key">The key.</param>
+        /// <typeparam name="T">Type of cache item.</typeparam>
+        /// <param name="key">The string key.</param>
         /// <param name="value">The value.</param>
         /// <returns>
-        /// true/false to indicate whether getting cache item and casting successfull or not
+        /// True/false to indicate whether getting cache item and casting successful or not.
         /// </returns>
         public bool TryGet<T>(string key, out T value)
         {
@@ -160,10 +159,10 @@ namespace Fanex.Caching
         /// <summary>
         /// Sets the specified key.
         /// </summary>
-        /// <typeparam name="T">Type of cache item</typeparam>
-        /// <param name="key">The key.</param>
+        /// <typeparam name="T">Type of cache item.</typeparam>
+        /// <param name="key">The string key.</param>
         /// <param name="value">The value.</param>
-        /// <param name="timeOut">The second time out, default is 120s</param>
+        /// <param name="timeOut">The second time out, default is 120s.</param>
         public void Set<T>(string key, T value, int timeOut = 120)
         {
             DateTime absoluteExpiration = DateTime.Now.AddSeconds(timeOut);
@@ -171,14 +170,14 @@ namespace Fanex.Caching
         }
 
         /// <summary>
-        ///   <para>Let’s say, the cache item is created at 8:05:00 </para>
-        ///   <para>and the lifetime is given to 5 seconds. </para>
+        ///   <para>Let’s say, the cache item is created at 8:05:00.</para>
+        ///   <para>and the lifetime is given to 5 seconds.</para>
         ///   <para>Then the lifetime of the cache item expires at 8:05:05.</para>
         /// </summary>
-        /// <typeparam name="T">Type of cache item</typeparam>
-        /// <param name="key">The key</param>
-        /// <param name="value">The value</param>
-        /// <param name="absoluteExpiration">DateTime AbsoluteExpiration</param>
+        /// <typeparam name="T">Type of cache item.</typeparam>
+        /// <param name="key">The string key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="absoluteExpiration">DateTime AbsoluteExpiration.</param>
         public void Set<T>(string key, T value, DateTime absoluteExpiration)
         {
             if (string.IsNullOrWhiteSpace(key))
@@ -195,15 +194,15 @@ namespace Fanex.Caching
         }
 
         /// <summary>
-        ///   <para>Let’s say, the cache item is created at 8:05:00 </para>
-        ///   <para>and the lifetime is given to 5 seconds. </para>
-        ///   <para>If an access to the cache item happen at 8:05:04, </para>
+        ///   <para>Let’s say, the cache item is created at 8:05:00.</para>
+        ///   <para>and the lifetime is given to 5 seconds.</para>
+        ///   <para>If an access to the cache item happen at 8:05:04.</para>
         ///   <para>the expiring time of the cache item will be updated to 8:05:09.</para>
         /// </summary>
-        /// <typeparam name="T">Type of cache item</typeparam>
-        /// <param name="key">The key</param>
-        /// <param name="value">The value</param>
-        /// <param name="slidingExpiration">Sliding Expiration</param>
+        /// <typeparam name="T">Type of cache item.</typeparam>
+        /// <param name="key">The string key.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="slidingExpiration">Sliding Expiration.</param>
         public void Set<T>(string key, T value, TimeSpan slidingExpiration)
         {
             if (string.IsNullOrWhiteSpace(key))
@@ -222,7 +221,7 @@ namespace Fanex.Caching
         /// <summary>
         /// Removes the specified key.
         /// </summary>
-        /// <param name="key">The key.</param>
+        /// <param name="key">The string key.</param>
         public void Remove(string key)
         {
             if (this.Keys.Count > 0)
@@ -233,7 +232,7 @@ namespace Fanex.Caching
         }
 
         /// <summary>
-        /// Clears all
+        /// Clears all.
         /// </summary>
         public void Clear()
         {
@@ -241,7 +240,7 @@ namespace Fanex.Caching
             this.Keys.Clear();
         }
 
-        #endregion
+        #endregion ICache Members
 
         #region IDisposable Members
 
@@ -254,6 +253,6 @@ namespace Fanex.Caching
             listKey = null;
         }
 
-        #endregion
+        #endregion IDisposable Members
     }
 }
