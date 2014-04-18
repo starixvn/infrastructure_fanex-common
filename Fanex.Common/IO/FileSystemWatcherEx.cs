@@ -1,27 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
+﻿// --------------------------------------------------------------------------
+// <copyright file="FileSystemWatcherEx.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Edward.Nguyen" date="2014.4.18">Created</change>
+// </history>
 
 namespace Fanex.Common.IO
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+
     /// <summary>
-    /// http://www.codeproject.com/KB/cs/EnhancedFileSysWatcher.aspx
+    /// <see cref="http://www.codeproject.com/KB/cs/EnhancedFileSysWatcher.aspx"/>
     /// </summary>
     public class FileSystemWatcherEx : FileSystemWatcher, IDisposable
     {
         #region Private Members
-        // This Dictionary keeps the track of when an event occured last for a particular file
+
+        // This Dictionary keeps the track of when an event occured last for a particular file.
         private Dictionary<string, DateTime> _lastFileEvent;
-        // Interval in Millisecond
+
+        // Interval in Millisecond.
         private int _interval;
-        //Timespan created when interval is set
+
+        // Time span created when interval is set.
         private TimeSpan _recentTimeSpan;
-        #endregion
+
+        #endregion Private Members
 
         #region Constructors
-        // Constructors delegate to the base class constructors and call private InitializeMember method
+
+        // Constructors delegate to the base class constructors and call private InitializeMember method.
         public FileSystemWatcherEx()
             : base()
         {
@@ -39,41 +51,60 @@ namespace Fanex.Common.IO
         {
             InitializeMembers();
         }
-        #endregion
+
+        #endregion Constructors
 
         #region Events
-        // These events hide the events from the base class. 
-        // We want to raise these events appropriately and we do not want the 
+
+        // These events hide the events from the base class.
+        // We want to raise these events appropriately and we do not want the
         // users of this class subscribing to these events of the base class accidentally
         public new event FileSystemEventHandler Changed;
+
         public new event FileSystemEventHandler Created;
+
         public new event FileSystemEventHandler Deleted;
+
         public new event RenamedEventHandler Renamed;
-   
-        #endregion
+
+        #endregion Events
 
         #region Protected Methods
+
         // Protected Methods to raise the Events for this class
         protected new virtual void OnChanged(FileSystemEventArgs e)
         {
-            if (Changed != null) Changed(this, e);
+            if (Changed != null)
+            {
+                Changed(this, e);
+            }
         }
 
         protected new virtual void OnCreated(FileSystemEventArgs e)
         {
-            if (Created != null) Created(this, e);
+            if (Created != null)
+            {
+                Created(this, e);
+            }
         }
 
         protected new virtual void OnDeleted(FileSystemEventArgs e)
         {
-            if (Deleted != null) Deleted(this, e);
+            if (Deleted != null)
+            {
+                Deleted(this, e);
+            }
         }
 
         protected new virtual void OnRenamed(RenamedEventArgs e)
         {
-            if (Renamed != null) Renamed(this, e);
+            if (Renamed != null)
+            {
+                Renamed(this, e);
+            }
         }
-        #endregion
+
+        #endregion Protected Methods
 
         #region Private Methods
 
@@ -96,12 +127,12 @@ namespace Fanex.Common.IO
         }
 
         /// <summary>
-        /// This method searches the dictionary to find out when the last event occured 
-        /// for a particular file. If that event occured within the specified timespan
-        /// it returns true, else false
+        /// This method searches the dictionary to find out when the last event occurred
+        /// for a particular file. If that event occurred within the specified time span
+        /// it returns true, else false.
         /// </summary>
-        /// <param name="FileName">The filename to be checked</param>
-        /// <returns>True if an event has occured within the specified interval, False otherwise</returns>
+        /// <param name="FileName">The filename to be checked.</param>
+        /// <returns>True if an event has occurred within the specified interval, False otherwise.</returns>
         private bool HasAnotherFileEventOccuredRecently(string FileName)
         {
             bool retVal = false;
@@ -112,8 +143,8 @@ namespace Fanex.Common.IO
                 if (_lastFileEvent.ContainsKey(FileName))
                 {
                     // If dictionary contains the filename, check how much time has elapsed
-                    // since the last event occured. If the timespan is less that the 
-                    // specified interval, set return value to true 
+                    // since the last event occured. If the timespan is less that the
+                    // specified interval, set return value to true
                     // and store current datetime in dictionary for this file
                     DateTime lastEventTime = _lastFileEvent[FileName];
                     DateTime currentTime = DateTime.Now;
@@ -123,7 +154,7 @@ namespace Fanex.Common.IO
                 }
                 else
                 {
-                    // If dictionary does not contain the filename, 
+                    // If dictionary does not contain the filename,
                     // no event has occured in past for this file, so set return value to false
                     // and annd filename alongwith current datetime to the dictionary
                     _lastFileEvent.Add(FileName, DateTime.Now);
@@ -135,38 +166,49 @@ namespace Fanex.Common.IO
         }
 
         #region FileSystemWatcher EventHandlers
+
         // Base class Event Handlers. Check if an event has occured recently and call method
-        // to raise appropriate event only if no recent event is detected
+        // to raise appropriate event only if no recent event is detected.
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
             if (!HasAnotherFileEventOccuredRecently(e.FullPath))
+            {
                 this.OnChanged(e);
+            }
         }
 
         private void OnCreated(object sender, FileSystemEventArgs e)
         {
             if (!HasAnotherFileEventOccuredRecently(e.FullPath))
+            {
                 this.OnCreated(e);
+            }
         }
 
         private void OnDeleted(object sender, FileSystemEventArgs e)
         {
             if (!HasAnotherFileEventOccuredRecently(e.FullPath))
+            {
                 this.OnDeleted(e);
+            }
         }
 
         private void OnRenamed(object sender, RenamedEventArgs e)
         {
             if (!HasAnotherFileEventOccuredRecently(e.OldFullPath))
+            {
                 this.OnRenamed(e);
+            }
         }
-        #endregion
-        #endregion
+
+        #endregion FileSystemWatcher EventHandlers
+
+        #endregion Private Methods
 
         #region Public Properties
 
         /// <summary>
-        /// Interval, in milliseconds, within which events are considered "recent"
+        /// Interval, in milliseconds, within which events are considered "recent".
         /// </summary>
         public int Interval
         {
@@ -174,20 +216,23 @@ namespace Fanex.Common.IO
             {
                 return _interval;
             }
+
             set
             {
                 _interval = value;
-                // Set timespan based on the value passed
+
+                // Set time span based on the value passed
                 _recentTimeSpan = new TimeSpan(0, 0, 0, 0, value);
             }
         }
 
         /// <summary>
         /// Allows user to set whether to filter recent events. If this is set a false,
-        /// this class behaves like System.IO.FileSystemWatcher class
+        /// this class behaves like System.IO.FileSystemWatcher class.
         /// </summary>
         public bool FilterRecentEvents { get; set; }
-        #endregion
+
+        #endregion Public Properties
 
         #region IDisposable Members
 
@@ -196,9 +241,6 @@ namespace Fanex.Common.IO
             base.Dispose();
         }
 
-        #endregion
+        #endregion IDisposable Members
     }
 }
-
-
-

@@ -15,6 +15,114 @@ namespace Fanex.Common.Extensions
     using System.Text;
     using System.Threading;
 
+    public enum DateTimeFormat
+    {
+        /// <summary>
+        /// The unknown specific.
+        /// </summary>
+        [StringValue("unknown")]
+        UnknownSpecific = 0,
+
+        /// <summary>
+        /// The short date.
+        /// </summary>
+        [StringValue("d")]
+        ShortDate = 1,
+
+        /// <summary>
+        /// The long date.
+        /// </summary>
+        [StringValue("D")]
+        LongDate = 2,
+
+        /// <summary>
+        /// The short time.
+        /// </summary>
+        [StringValue("t")]
+        ShortTime = 3,
+
+        /// <summary>
+        /// The long time.
+        /// </summary>
+        [StringValue("T")]
+        LongTime = 4,
+
+        /// <summary>
+        /// The full short date time.
+        /// </summary>
+        [StringValue("f")]
+        FullShortDateTime = 5,
+
+        /// <summary>
+        /// The full long date time.
+        /// </summary>
+        [StringValue("F")]
+        FullLongDateTime = 6,
+
+        /// <summary>
+        /// The general short date time.
+        /// </summary>
+        [StringValue("g")]
+        GeneralShortDateTime = 7,
+
+        /// <summary>
+        /// The general long date time.
+        /// </summary>
+        [StringValue("G")]
+        GeneralLongDateTime = 8,
+
+        /// <summary>
+        /// The month day lower case.
+        /// </summary>
+        [StringValue("m")]
+        MonthDayLowerCase = 9,
+
+        /// <summary>
+        /// The month day upper case.
+        /// </summary>
+        [StringValue("M")]
+        MonthDayUpperCase = 10,
+
+        /// <summary>
+        /// The RFC1123 lower case.
+        /// </summary>
+        [StringValue("r")]
+        Rfc1123LowerCase = 11,
+
+        /// <summary>
+        /// The RFC1123 upper case.
+        /// </summary>
+        [StringValue("R")]
+        Rfc1123UpperCase = 12,
+
+        /// <summary>
+        /// The sortable date time ISO8601.
+        /// </summary>
+        [StringValue("s")]
+        SortableDateTimeIso8601 = 13,
+
+        /// <summary>
+        /// The universal sortable date time.
+        /// </summary>
+        [StringValue("U")]
+        UniversalSortableDateTime = 14,
+
+        /// <summary>
+        /// The year month lower case.
+        /// </summary>
+        [StringValue("y")]
+        YearMonthLowerCase = 15,
+
+        /// <summary>
+        /// The year month upper case.
+        /// </summary>
+        [StringValue("Y")]
+        YearMonthUpperCase = 16
+    }
+
+    /// <summary>
+    /// The date and time extension class.
+    /// </summary>
     public static class DateTimeExtensions
     {
         private static readonly DateTime MinDate = new DateTime(1900, 1, 1);
@@ -33,27 +141,29 @@ namespace Fanex.Common.Extensions
         }
 
         /// <summary>
-        /// <see cref="http://geekswithblogs.net/thibbard/archive/2008/06/26/c-datetime-extension-method.aspx"/>
+        /// To the short date equal length string./// <see cref="http://geekswithblogs.net/thibbard/archive/2008/06/26/c-datetime-extension-method.aspx"/>
         /// </summary>
-        /// <param name="dt"></param>
-        /// <returns></returns>
+        /// <param name="dateTime">The date time.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
-        public static string ToShortDateEqualLengthString(this DateTime dt)
+        public static string ToShortDateEqualLengthString(this DateTime dateTime)
         {
             var rv = new StringBuilder();
-            if (dt.Month.ToString().Length == 1)
+            if (dateTime.Month.ToString().Length == 1)
             {
                 rv.Append("0");
             }
-            rv.Append(dt.Month.ToString());
+
+            rv.Append(dateTime.Month.ToString());
             rv.Append("/");
-            if (dt.Day.ToString().Length == 1)
+            if (dateTime.Day.ToString().Length == 1)
             {
                 rv.Append("0");
             }
-            rv.Append(dt.Day.ToString());
+
+            rv.Append(dateTime.Day.ToString());
             rv.Append("/");
-            rv.Append(dt.Year.ToString());
+            rv.Append(dateTime.Year.ToString());
 
             return rv.ToString();
         }
@@ -71,16 +181,11 @@ namespace Fanex.Common.Extensions
         }
 
         /// <summary>
-        /// This is extension method for format the data time into the string with pattern specific and current culture
-        /// <example>
-        /// var shortDateResult = DateTime.Now.ToStringFormat(() => DateTimeFormat.ShortDate);
-        /// var fullLongDateTimeResult = DateTime.Now.ToStringFormat(() => DateTimeFormat.FullLongDateTime);
-        /// var rfc1123Result = DateTime.Now.ToStringFormat(() => DateTimeFormat.Rfc1123LowerCase);
-        /// </example>
+        /// This is extension method for format the data time into the string with pattern specific and current culture.
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="dateTimeFormat"></param>
-        /// <returns></returns>
+        /// <param name="source">The source.</param>
+        /// <param name="dateTimeFormat">The date time format.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
         public static string ToStringFormat(this DateTime source, Expression<Func<DateTimeFormat>> dateTimeFormat)
         {
@@ -94,13 +199,10 @@ namespace Fanex.Common.Extensions
         }
 
         /// <summary>
-        /// Get the elapsed time since the input DateTime
+        /// Get the elapsed time since the input DateTime.
         /// </summary>
-        /// <param name="input">Input DateTime</param>
-        /// <returns>Returns a TimeSpan value with the elapsed time since the input DateTime</returns>
-        /// <example>
-        /// TimeSpan elapsed = dtStart.Elapsed();
-        /// </example>
+        /// <param name="input">Input DateTime.</param>
+        /// <returns>Returns a TimeSpan value with the elapsed time since the input DateTime.</returns>
         /// <seealso cref="ElapsedSeconds()"/>
         [DebuggerStepThrough]
         public static TimeSpan Elapsed(this DateTime input)
@@ -108,71 +210,30 @@ namespace Fanex.Common.Extensions
             return DateTime.Now.Subtract(input);
         }
 
+        /// <summary>
+        /// Length the of time.
+        /// </summary>
+        /// <param name="date">The date and time.</param>
+        /// <returns>The result.</returns>
         public static string LengthOfTime(this DateTime date)
         {
             TimeSpan lengthOfTime = DateTime.Now.Subtract(date);
             if (lengthOfTime.Minutes == 0)
+            {
                 return lengthOfTime.Seconds.ToString() + "s";
+            }
             else if (lengthOfTime.Hours == 0)
+            {
                 return lengthOfTime.Minutes.ToString() + "m";
+            }
             else if (lengthOfTime.Days == 0)
+            {
                 return lengthOfTime.Hours.ToString() + "h";
+            }
             else
+            {
                 return lengthOfTime.Days.ToString() + "d";
+            }
         }
-    }
-
-    public enum DateTimeFormat
-    {
-        [StringValue("unknown")]
-        UnknownSpecific = 0,
-
-        [StringValue("d")]
-        ShortDate = 1,
-
-        [StringValue("D")]
-        LongDate = 2,
-
-        [StringValue("t")]
-        ShortTime = 3,
-
-        [StringValue("T")]
-        LongTime = 4,
-
-        [StringValue("f")]
-        FullShortDateTime = 5,
-
-        [StringValue("F")]
-        FullLongDateTime = 6,
-
-        [StringValue("g")]
-        GeneralShortDateTime = 7,
-
-        [StringValue("G")]
-        GeneralLongDateTime = 8,
-
-        [StringValue("m")]
-        MonthDayLowerCase = 9,
-
-        [StringValue("M")]
-        MonthDayUpperCase = 10,
-
-        [StringValue("r")]
-        Rfc1123LowerCase = 11,
-
-        [StringValue("R")]
-        Rfc1123UpperCase = 12,
-
-        [StringValue("s")]
-        SortableDateTimeIso8601 = 13,
-
-        [StringValue("U")]
-        UniversalSortableDateTime = 14,
-
-        [StringValue("y")]
-        YearMonthLowerCase = 15,
-
-        [StringValue("Y")]
-        YearMonthUpperCase = 16
     }
 }

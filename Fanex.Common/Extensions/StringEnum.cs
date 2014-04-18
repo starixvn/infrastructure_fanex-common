@@ -1,8 +1,11 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="StringEnum.cs" company="">
-// TODO: Update copyright text.
+﻿// --------------------------------------------------------------------------
+// <copyright file="StringEnum.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
-// -----------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Edward.Nguyen" date="2014.4.18">Created</change>
+// </history>
 
 namespace Fanex.Common.Extensions
 {
@@ -11,7 +14,7 @@ namespace Fanex.Common.Extensions
     using System.Reflection;
 
     /// <summary>
-    /// Helper class for working with 'extended' enums using <see cref="StringValueAttribute"/> attributes.
+    /// Helper class for working with 'extended' ENUMS using <see cref="StringValueAttribute"/> attributes.
     /// </summary>
     public class StringEnum
     {
@@ -21,22 +24,25 @@ namespace Fanex.Common.Extensions
         private static Hashtable _stringValues = new Hashtable();
 
         /// <summary>
-        /// Creates a new <see cref="StringEnum"/> instance.
+        /// Initializes a new instance of the <see cref="StringEnum"/> class.
         /// </summary>
-        /// <param name="enumType">Enum type.</param>
+        /// <param name="enumType">Type of the ENUM.</param>
+        /// <exception cref="System.ArgumentException">Throw argument exception.</exception>
         public StringEnum(Type enumType)
         {
             if (!enumType.IsEnum)
-                throw new ArgumentException(String.Format("Supplied type must be an Enum.  Type was {0}", enumType.ToString()));
+            {
+                throw new ArgumentException(string.Format("Supplied type must be an Enum.  Type was {0}", enumType.ToString()));
+            }
 
             _enumType = enumType;
         }
 
         /// <summary>
-        /// Gets the string value associated with the given enum value.
+        /// Gets the string value associated with the given ENUM value.
         /// </summary>
-        /// <param name="valueName">Name of the enum value.</param>
-        /// <returns>String Value</returns>
+        /// <param name="valueName">Name of the ENUM value.</param>
+        /// <returns>String Value.</returns>
         public string GetStringValue(string valueName)
         {
             Enum enumType;
@@ -46,73 +52,80 @@ namespace Fanex.Common.Extensions
                 enumType = (Enum)Enum.Parse(_enumType, valueName);
                 stringValue = GetStringValue(enumType);
             }
-            catch (Exception) { } // Swallow!
+            catch
+            {
+                // Swallow!
+            } 
 
             return stringValue;
         }
 
         /// <summary>
-        /// Gets the string values associated with the enum.
+        /// Gets the string values associated with the ENUM.
         /// </summary>
-        /// <returns>String value array</returns>
+        /// <returns>String value array.</returns>
         public Array GetStringValues()
         {
             ArrayList values = new ArrayList();
-            // Look for our string value associated with fields in this enum
+            //// Look for our string value associated with fields in this ENUM
             foreach (FieldInfo fi in _enumType.GetFields())
             {
-                // Check for our custom attribute
+                //// Check for our custom attribute
                 StringValueAttribute[] attrs = fi.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
                 if (attrs.Length > 0)
+                {
                     values.Add(attrs[0].Value);
+                }
             }
 
             return values.ToArray();
         }
 
         /// <summary>
-        /// Gets the values as a 'bindable' list datasource.
+        /// Gets the values as a bind able list data source.
         /// </summary>
-        /// <returns>IList for data binding</returns>
+        /// <returns>IList for data binding.</returns>
         public IList GetListValues()
         {
             Type underlyingType = Enum.GetUnderlyingType(_enumType);
             ArrayList values = new ArrayList();
-            // Look for our string value associated with fields in this enum
+            //// Look for our string value associated with fields in this enum
             foreach (FieldInfo fi in _enumType.GetFields())
             {
-                // Check for our custom attribute
+                //// Check for our custom attribute
                 StringValueAttribute[] attrs = fi.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
                 if (attrs.Length > 0)
+                {
                     values.Add(new DictionaryEntry(Convert.ChangeType(Enum.Parse(_enumType, fi.Name), underlyingType), attrs[0].Value));
+                }
             }
 
             return values;
         }
 
         /// <summary>
-        /// Return the existence of the given string value within the enum.
+        /// Return the existence of the given string value within the ENUM.
         /// </summary>
         /// <param name="stringValue">String value.</param>
-        /// <returns>Existence of the string value</returns>
+        /// <returns>Existence of the string value.</returns>
         public bool IsStringDefined(string stringValue)
         {
             return Parse(_enumType, stringValue) != null;
         }
 
         /// <summary>
-        /// Return the existence of the given string value within the enum.
+        /// Return the existence of the given string value within the ENUM.
         /// </summary>
         /// <param name="stringValue">String value.</param>
-        /// <param name="ignoreCase">Denotes whether to conduct a case-insensitive match on the supplied string value</param>
-        /// <returns>Existence of the string value</returns>
+        /// <param name="ignoreCase">Denotes whether to conduct a case-insensitive match on the supplied string value.</param>
+        /// <returns>Existence of the string value.</returns>
         public bool IsStringDefined(string stringValue, bool ignoreCase)
         {
             return Parse(_enumType, stringValue, ignoreCase) != null;
         }
 
         /// <summary>
-        /// Gets the underlying enum type for this instance.
+        /// Gets the underlying ENUM type for this instance.
         /// </summary>
         /// <value></value>
         public Type EnumType
@@ -125,9 +138,9 @@ namespace Fanex.Common.Extensions
         #region Static implementation
 
         /// <summary>
-        /// Gets a string value for a particular enum value.
+        /// Gets a string value for a particular ENUM value.
         /// </summary>
-        /// <param name="value">Value.</param>
+        /// <param name="value">The value.</param>
         /// <returns>String Value associated via a <see cref="StringValueAttribute"/> attribute, or null if not found.</returns>
         public static string GetStringValue(Enum value)
         {
@@ -135,7 +148,9 @@ namespace Fanex.Common.Extensions
             Type type = value.GetType();
 
             if (_stringValues.ContainsKey(value))
+            {
                 output = (_stringValues[value] as StringValueAttribute).Value;
+            }
             else
             {
                 // Look for our 'StringValueAttribute' in the field's custom attributes
@@ -147,34 +162,37 @@ namespace Fanex.Common.Extensions
                     output = attrs[0].Value;
                 }
             }
+
             return output;
         }
 
         /// <summary>
-        /// Parses the supplied enum and string value to find an associated enum value (case sensitive).
+        /// Parses the supplied ENUM and string value to find an associated ENUM value (case sensitive).
         /// </summary>
-        /// <param name="type">Type.</param>
+        /// <param name="type">The object type.</param>
         /// <param name="stringValue">String value.</param>
-        /// <returns>Enum value associated with the string value, or null if not found.</returns>
+        /// <returns>ENUM value associated with the string value, or null if not found.</returns>
         public static object Parse(Type type, string stringValue)
         {
             return Parse(type, stringValue, false);
         }
 
         /// <summary>
-        /// Parses the supplied enum and string value to find an associated enum value.
+        /// Parses the supplied ENUM and string value to find an associated ENUM value.
         /// </summary>
-        /// <param name="type">Type.</param>
+        /// <param name="type">The object type.</param>
         /// <param name="stringValue">String value.</param>
-        /// <param name="ignoreCase">Denotes whether to conduct a case-insensitive match on the supplied string value</param>
-        /// <returns>Enum value associated with the string value, or null if not found.</returns>
+        /// <param name="ignoreCase">Denotes whether to conduct a case-insensitive match on the supplied string value.</param>
+        /// <returns>ENUM value associated with the string value, or null if not found.</returns>
         public static object Parse(Type type, string stringValue, bool ignoreCase)
         {
             object output = null;
             string enumStringValue = null;
 
             if (!type.IsEnum)
-                throw new ArgumentException(String.Format("Supplied type must be an Enum.  Type was {0}", type.ToString()));
+            {
+                throw new ArgumentException(string.Format("Supplied type must be an Enum.  Type was {0}", type.ToString()));
+            }
 
             // Look for our string value associated with fields in this enum
             foreach (FieldInfo fi in type.GetFields())
@@ -182,7 +200,9 @@ namespace Fanex.Common.Extensions
                 // Check for our custom attribute
                 StringValueAttribute[] attrs = fi.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
                 if (attrs.Length > 0)
+                {
                     enumStringValue = attrs[0].Value;
+                }
 
                 // Check for equality then select actual enum value.
                 if (string.Compare(enumStringValue, stringValue, ignoreCase) == 0)
@@ -196,23 +216,23 @@ namespace Fanex.Common.Extensions
         }
 
         /// <summary>
-        /// Return the existence of the given string value within the enum.
+        /// Return the existence of the given string value within the ENUM.
         /// </summary>
-        /// <param name="stringValue">String value.</param>
-        /// <param name="enumType">Type of enum</param>
-        /// <returns>Existence of the string value</returns>
+        /// <param name="enumType">Type of the ENUM.</param>
+        /// <param name="stringValue">The string value.</param>
+        /// <returns>The result.</returns>
         public static bool IsStringDefined(Type enumType, string stringValue)
         {
             return Parse(enumType, stringValue) != null;
         }
 
         /// <summary>
-        /// Return the existence of the given string value within the enum.
+        /// Return the existence of the given string value within the ENUM.
         /// </summary>
         /// <param name="stringValue">String value.</param>
-        /// <param name="enumType">Type of enum</param>
-        /// <param name="ignoreCase">Denotes whether to conduct a case-insensitive match on the supplied string value</param>
-        /// <returns>Existence of the string value</returns>
+        /// <param name="enumType">Type of ENUM.</param>
+        /// <param name="ignoreCase">Denotes whether to conduct a case-insensitive match on the supplied string value.</param>
+        /// <returns>Existence of the string value.</returns>
         public static bool IsStringDefined(Type enumType, string stringValue, bool ignoreCase)
         {
             return Parse(enumType, stringValue, ignoreCase) != null;
@@ -224,16 +244,16 @@ namespace Fanex.Common.Extensions
     #region Class StringValueAttribute
 
     /// <summary>
-    /// Simple attribute class for storing String Values
+    /// Simple attribute class for storing String Values.
     /// </summary>
     public class StringValueAttribute : Attribute
     {
         private string _value;
 
         /// <summary>
-        /// Creates a new <see cref="StringValueAttribute"/> instance.
+        /// Initializes a new instance of the <see cref="StringValueAttribute"/> class.
         /// </summary>
-        /// <param name="value">Value.</param>
+        /// <param name="value">The value.</param>
         public StringValueAttribute(string value)
         {
             _value = value;

@@ -11,12 +11,14 @@ namespace Fanex.Common.Extensions
 {
     using System.Web.SessionState;
 
+    /// <summary>
+    /// The session class extension.
+    /// </summary>
     public static class SessionExtensions
     {
         public delegate object UponCreate();
 
-        public static T GetObject<T>(this HttpSessionState session,
-           string key, UponCreate uponCreate = null) where T : class
+        public static T GetObject<T>(this HttpSessionState session, string key, UponCreate uponCreate = null) where T : class
         {
             if (null == session[key])
             {
@@ -24,11 +26,11 @@ namespace Fanex.Common.Extensions
                 session[key] = item;
                 return item;
             }
+
             return session[key] as T;
         }
 
-        public static T GetValue<T>(this HttpSessionState session, string key,
-            UponCreate uponCreate = null) where T : struct
+        public static T GetValue<T>(this HttpSessionState session, string key, UponCreate uponCreate = null) where T : struct
         {
             if (null == session[key])
             {
@@ -36,6 +38,7 @@ namespace Fanex.Common.Extensions
                 session[key] = item;
                 return (T)item;
             }
+
             return (T)session[key];
         }
 

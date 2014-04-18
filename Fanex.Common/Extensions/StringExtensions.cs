@@ -12,6 +12,7 @@ namespace Fanex.Common.Extensions
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Security.Cryptography;
     using System.Text;
@@ -19,13 +20,16 @@ namespace Fanex.Common.Extensions
     using System.Web;
     using Fanex.Common.Helper;
 
+    /// <summary>
+    /// The string extension class.
+    /// </summary>
+    [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2100:CodeLineMustNotBeLongerThan", Justification = "Reviewed. Suppression is OK here.")]
     public static class StringExtensions
     {
         public static readonly Regex WebUrlExpression = new Regex(@"(http|https)://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?", RegexOptions.Singleline | RegexOptions.Compiled);
         public static readonly Regex EmailExpression = new Regex(@"^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$", RegexOptions.Singleline | RegexOptions.Compiled);
         public static readonly Regex StripHtmlExpression = new Regex("<\\S[^><]*>", RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
         public static readonly Regex IpExpression = new Regex(@"\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}");
-
         public static readonly char[] IllegalUrlCharacters = new[] { ';', '/', '\\', '?', ':', '@', '&', '=', '+', '$', ',', '<', '>', '#', '%', '.', '!', '*', '\'', '"', '(', ')', '[', ']', '{', '}', '|', '^', '`', '~', '–', '‘', '’', '“', '”', '»', '«' };
 
         [DebuggerStepThrough]
@@ -206,9 +210,13 @@ namespace Fanex.Common.Extensions
         public static bool IsNullOrTrimEmpty(this string value)
         {
             if (value == null)
+            {
                 return true;
+            }
             else
-                return String.Empty == value.Trim();
+            {
+                return string.Empty == value.Trim();
+            }
         }
 
         [DebuggerStepThrough]
@@ -225,9 +233,13 @@ namespace Fanex.Common.Extensions
         public static string RegexMatch(this string value, string pattern, RegexOptions options, string groupName)
         {
             if (groupName.IsNullOrTrimEmpty())
+            {
                 return Regex.Match(value, pattern, options).Value;
+            }
             else
+            {
                 return Regex.Match(value, pattern, options).Groups[groupName].Value;
+            }
         }
 
         [DebuggerStepThrough]
@@ -249,7 +261,7 @@ namespace Fanex.Common.Extensions
         }
 
         /// <summary>
-        /// Returns true if there is a match from the regex pattern
+        /// Returns true if there is a match from the regex pattern.
         /// </summary>
         [DebuggerStepThrough]
         public static bool IsRegexMatch(this string value, string pattern, RegexOptions options)
@@ -266,9 +278,9 @@ namespace Fanex.Common.Extensions
         /// <summary>
         /// Returns a string where matching patterns are replaced by the replacement string.
         /// </summary>
-        /// <param name="pattern">The regex pattern for matching the items to be replaced</param>
-        /// <param name="replacement">The string to replace matching items</param>
-        /// <returns></returns>
+        /// <param name="pattern">The regex pattern for matching the items to be replaced.</param>
+        /// <param name="replacement">The string to replace matching items.</param>
+        /// <returns>The result.</returns>
         [DebuggerStepThrough]
         public static string RegexReplace(this string value, string pattern, string replacement, RegexOptions options)
         {
@@ -282,7 +294,7 @@ namespace Fanex.Common.Extensions
         }
 
         /// <summary>
-        /// replace function string.Format
+        /// Replace function string.Format.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="args"></param>
@@ -294,7 +306,7 @@ namespace Fanex.Common.Extensions
         }
 
         /// <summary>
-        /// raplace for substring, but shorter format
+        /// Replace for substring, but shorter format.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="length"></param>
@@ -315,13 +327,17 @@ namespace Fanex.Common.Extensions
         /// Indicates whether the current string matches the supplied wildcard pattern.  Behaves the same
         /// as VB's "Like" Operator.
         /// </summary>
-        /// <param name="s">The string instance where the extension method is called</param>
+        /// <param name="s">The string instance where the extension method is called.</param>
         /// <param name="wildcardPattern">The wildcard pattern to match.  Syntax matches VB's Like operator.</param>
         /// <returns>true if the string matches the supplied pattern, false otherwise.</returns>
         /// <remarks>See http://msdn.microsoft.com/en-us/library/swf8kaxw(v=VS.100).aspx</remarks>
         public static bool IsLike(this string s, string wildcardPattern)
         {
-            if (s == null || String.IsNullOrEmpty(wildcardPattern)) return false;
+            if (s == null || string.IsNullOrEmpty(wildcardPattern))
+            {
+                return false;
+            }
+
             // turn into regex pattern, and match the whole string with ^$
             var regexPattern = "^" + Regex.Escape(wildcardPattern) + "$";
 
@@ -340,8 +356,9 @@ namespace Fanex.Common.Extensions
             }
             catch (ArgumentException ex)
             {
-                throw new ArgumentException(String.Format("Invalid pattern: {0}", wildcardPattern), ex);
+                throw new ArgumentException(string.Format("Invalid pattern: {0}", wildcardPattern), ex);
             }
+
             return result;
         }
     }
