@@ -2,6 +2,10 @@
 {
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Security.Cryptography;
+    using System.Text;
+    using Fanex.Logging.CustomTraceListener.Services;
     using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
     using Microsoft.Practices.EnterpriseLibrary.Logging;
     using Microsoft.Practices.EnterpriseLibrary.Logging.Formatters;
@@ -11,6 +15,8 @@
     [ConfigurationElementType(typeof(CustomEmailTraceListenerData))]
     public class CustomEmailTraceListener : CustomFormattedTraceListenerBase
     {
+        private static ICacheService _cacheManager = new CacheService();
+
         private string _toAddress = string.Empty;
         private string _fromAddress = string.Empty;
         private string _subjectLineStarter = string.Empty;
@@ -23,6 +29,7 @@
         private bool _useSSL = false;
         private string _umAddress = string.Empty;
         private bool _isCheckingDowntimeEnabled = true;
+        private int _cacheDuplicatedEmailTimeOut = 120;
 
         /// <summary>
         /// Initializes a new instance of <see cref="EmailTraceListener"/> with a toaddress, fromaddress,
@@ -36,8 +43,8 @@
         /// <param name="smtpServer">The name of the SMTP server.</param>
         /// <param name="formatter">The Formatter <see cref="ILogFormatter"/> which determines how the
         /// email message should be formatted</param>
-        public CustomEmailTraceListener(string toAddress, string fromAddress, string subjectLineStarter, string subjectLineEnder, string smtpServer, ILogFormatter formatter, string umAddress, bool isCheckingDowntimeEnabled)
-            : this(toAddress, fromAddress, subjectLineStarter, subjectLineEnder, smtpServer, 25, formatter, umAddress, isCheckingDowntimeEnabled)
+        public CustomEmailTraceListener(string toAddress, string fromAddress, string subjectLineStarter, string subjectLineEnder, string smtpServer, ILogFormatter formatter, string umAddress, bool isCheckingDowntimeEnabled, int cacheDuplicatedEmailTimeOut)
+            : this(toAddress, fromAddress, subjectLineStarter, subjectLineEnder, smtpServer, 25, formatter, umAddress, isCheckingDowntimeEnabled, cacheDuplicatedEmailTimeOut)
         {
         }
 
@@ -63,7 +70,8 @@
             int smtpPort,
             ILogFormatter formatter,
             string umAddress,
-            bool isCheckingDowntimeEnabled)
+            bool isCheckingDowntimeEnabled,
+            int cacheDuplicatedEmailTimeOut)
             : base(formatter)
         {
             this._toAddress = toAddress;
@@ -74,6 +82,7 @@
             this._smtpPort = smtpPort;
             this._umAddress = umAddress;
             this._isCheckingDowntimeEnabled = isCheckingDowntimeEnabled;
+            this._cacheDuplicatedEmailTimeOut = cacheDuplicatedEmailTimeOut;
         }
 
         /// <summary>
@@ -106,7 +115,8 @@
             string password,
             bool useSSL,
             string umAddress,
-            bool isCheckingDowntimeEnabled)
+            bool isCheckingDowntimeEnabled,
+            int cacheDuplicatedEmailTimeOut)
             : base(formatter)
         {
             this._toAddress = toAddress;
@@ -121,6 +131,7 @@
             this._useSSL = useSSL;
             this._umAddress = umAddress;
             this._isCheckingDowntimeEnabled = isCheckingDowntimeEnabled;
+            this._cacheDuplicatedEmailTimeOut = cacheDuplicatedEmailTimeOut;
         }
 
         /// <summary>
@@ -140,9 +151,10 @@
             string subjectLineEnder,
             string smtpServer,
             string umAddress,
-            bool isCheckingDowntimeEnabled)
-            : this(toAddress, fromAddress, subjectLineStarter, subjectLineEnder, smtpServer, 25, umAddress, isCheckingDowntimeEnabled)
-        { 
+            bool isCheckingDowntimeEnabled,
+            int cacheDuplicatedEmailTimeOut)
+            : this(toAddress, fromAddress, subjectLineStarter, subjectLineEnder, smtpServer, 25, umAddress, isCheckingDowntimeEnabled, cacheDuplicatedEmailTimeOut)
+        {
         }
 
         /// <summary>
@@ -155,8 +167,8 @@
         /// <param name="subjectLineEnder">Ending text for the subject line.</param>
         /// <param name="smtpServer">The name of the SMTP server.</param>
         /// <param name="smtpPort">The port on the SMTP server to use for sending the email.</param>
-        public CustomEmailTraceListener(string toAddress, string fromAddress, string subjectLineStarter, string subjectLineEnder, string smtpServer, int smtpPort, string umAddress, bool isCheckingDowntimeEnabled)
-            : this(toAddress, fromAddress, subjectLineStarter, subjectLineEnder, smtpServer, smtpPort, EmailAuthenticationMode.None, null, null, false, umAddress, isCheckingDowntimeEnabled)
+        public CustomEmailTraceListener(string toAddress, string fromAddress, string subjectLineStarter, string subjectLineEnder, string smtpServer, int smtpPort, string umAddress, bool isCheckingDowntimeEnabled, int cacheDuplicatedEmailTimeOut)
+            : this(toAddress, fromAddress, subjectLineStarter, subjectLineEnder, smtpServer, smtpPort, EmailAuthenticationMode.None, null, null, false, umAddress, isCheckingDowntimeEnabled, cacheDuplicatedEmailTimeOut)
         {
         }
 
@@ -186,7 +198,8 @@
             string password,
             bool useSSL,
             string umAddress,
-            bool isCheckingDowntimeEnabled)
+            bool isCheckingDowntimeEnabled,
+            int cacheDuplicatedEmailTimeOut)
         {
             this._toAddress = toAddress;
             this._fromAddress = fromAddress;
@@ -200,6 +213,7 @@
             this._useSSL = useSSL;
             this._umAddress = umAddress;
             this._isCheckingDowntimeEnabled = isCheckingDowntimeEnabled;
+            this._cacheDuplicatedEmailTimeOut = cacheDuplicatedEmailTimeOut;
         }
 
         /// <summary>
@@ -208,6 +222,16 @@
         /// <param name="message">The string to write as the email message</param>
         public override void Write(string message)
         {
+            var cacheKey = GetMd5Hash(message);
+            if (_cacheManager.Contains(cacheKey))
+            {
+                return;
+            }
+            else
+            {
+                _cacheManager.Set(cacheKey, new object(), _cacheDuplicatedEmailTimeOut);
+            }
+
             DowntimeCheckingEmailMessage mailMessage =
                 new DowntimeCheckingEmailMessage(
                     _toAddress,
@@ -249,21 +273,34 @@
             {
                 if (data is LogEntry)
                 {
-                    DowntimeCheckingEmailMessage message = new DowntimeCheckingEmailMessage(
+                    LogEntry logEntry = data as LogEntry;
+                    var message = GetLogEntryCombinedMessage(logEntry);
+
+                    var cacheKey = GetMd5Hash(message);
+                    if (_cacheManager.Contains(cacheKey))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        _cacheManager.Set(cacheKey, new object(), _cacheDuplicatedEmailTimeOut);
+                    }
+
+                    DowntimeCheckingEmailMessage emailMessage = new DowntimeCheckingEmailMessage(
                         _toAddress,
                         _fromAddress,
                         _subjectLineStarter,
                         _subjectLineEnder,
                         _smtpServer,
                         _smtpPort,
-                        data as LogEntry,
+                        logEntry,
                         this.Formatter,
                         _authenticationMode,
                         _userName,
                         _password,
                         _useSSL);
 
-                    message.Send(_umAddress, _isCheckingDowntimeEnabled);
+                    emailMessage.Send(_umAddress, _isCheckingDowntimeEnabled);
                 }
                 else if (data is string)
                 {
@@ -276,12 +313,49 @@
             }
         }
 
+        private string GetLogEntryCombinedMessage(LogEntry logEntry)
+        {
+            var logCategory = "default";
+
+            if (logEntry.Categories != null && logEntry.Categories.Any())
+            {
+                logCategory = logEntry.Categories.First();
+            }
+
+            var message = string.Join(string.Empty, new string[] { logEntry.Message, logEntry.MachineName, logEntry.Severity.ToString(), logCategory });
+
+            return message;
+        }
+
+        private string GetMd5Hash(string input)
+        {
+            using (MD5 md5Hash = MD5.Create())
+            {
+                // Convert the input string to a byte array and compute the hash.
+                byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+                // Create a new Stringbuilder to collect the bytes
+                // and create a string.
+                StringBuilder sBuilder = new StringBuilder();
+
+                // Loop through each byte of the hashed data
+                // and format each one as a hexadecimal string.
+                for (int i = 0; i < data.Length; i++)
+                {
+                    sBuilder.Append(data[i].ToString("x2"));
+                }
+
+                // Return the hexadecimal string.
+                return sBuilder.ToString();
+            }
+        }
+
         /// <summary>
         /// Declare the supported attributes for <see cref="EmailTraceListener"/>
         /// </summary>
         protected override string[] GetSupportedAttributes()
         {
-            return new string[9] { "formatter", "toAddress", "fromAddress", "subjectLineStarter", "subjectLineEnder", "smtpServer", "smtpPort", "umAddress", "isCheckingDowntimeEnabled" };
+            return new string[] { "formatter", "toAddress", "fromAddress", "subjectLineStarter", "subjectLineEnder", "smtpServer", "smtpPort", "umAddress", "isCheckingDowntimeEnabled", "cacheDuplicatedEmailTimeOut" };
         }
     }
 }

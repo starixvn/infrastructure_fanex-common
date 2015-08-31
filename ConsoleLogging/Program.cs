@@ -10,6 +10,7 @@
 namespace ConsoleLogging
 {
     using System;
+    using System.Threading;
     using Fanex.Logging;
 
     /// <summary>
@@ -25,14 +26,26 @@ namespace ConsoleLogging
         {
             try
             {
-                for (int i = 0; i < 1; i++)
+                for (int i = 0; i < 2; i++)
                 {
-                    LogService.Critical("Test logging.");
-
-                    LogService.Warn("Test logging");
-
-                    LogService.Critical("Test logging");
+                    LogService.Error("Test logging.", new Exception("Demo Exception"));
+                    LogService.Warn("Test warning");
+                    LogService.Info("Test info");
                 }
+
+                LogService.Error("Test logging1.", new Exception("Demo Exception"));
+                LogService.Warn("Test warning1");
+                LogService.Info("Test info1");
+
+                Thread.Sleep(130 * 1000);
+
+                Console.WriteLine("Second time");
+
+                LogService.Error("Test logging.", new Exception("Demo Exception"));
+                LogService.Warn("Test warning");
+                LogService.Info("Test info");
+
+                Console.ReadLine();
             }
             catch (Exception ex)
             {

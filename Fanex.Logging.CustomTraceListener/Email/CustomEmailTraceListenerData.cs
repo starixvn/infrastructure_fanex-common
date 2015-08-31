@@ -29,6 +29,7 @@
         private const string PasswordProperty = "password";
         private const string UMAddressProperty = "umAddress";
         private const string IsCheckingDowntimeEnabledProperty = "isCheckingDowntimeEnabled";
+        private const string CacheDuplicatedEmailTimeOutProperty = "cacheDuplicatedEmailTimeOut";
 
         /// <summary>
         /// Initializes a <see cref="EmailTraceListenerData"/>.
@@ -351,6 +352,15 @@
             set { base[IsCheckingDowntimeEnabledProperty] = value; }
         }
 
+        [ConfigurationProperty(CacheDuplicatedEmailTimeOutProperty, IsRequired = false, DefaultValue = 120)]
+        [Description("Cache duplicated email to not send email in seconds")]
+        [DisplayName("Cache Duplicated Email TimeOut In Seconds")]
+        public int CacheDuplicatedEmailTimeOut
+        {
+            get { return (int)base[CacheDuplicatedEmailTimeOutProperty]; }
+            set { base[CacheDuplicatedEmailTimeOutProperty] = value; }
+        }
+
         /// <summary>
         /// Returns a lambda expression that represents the creation of the trace listener described by this
         /// configuration object.
@@ -372,7 +382,8 @@
                         this.Password,
                         this.UseSSL,
                         this.UMAddress,
-                        this.IsCheckingDowntimeEnabled);
+                        this.IsCheckingDowntimeEnabled,
+                        this.CacheDuplicatedEmailTimeOut);
         }
     }
 }
