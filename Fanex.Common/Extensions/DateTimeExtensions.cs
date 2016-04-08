@@ -128,6 +128,9 @@ namespace Fanex.Common.Extensions
         private static readonly DateTime MinDate = new DateTime(1900, 1, 1);
         private static readonly DateTime MaxDate = new DateTime(9999, 12, 31, 23, 59, 59, 999);
 
+        public const string ShortDateFormat = "MM/dd/yyyy";
+        public const string FullDateFormat = "MM/dd/yyyy hh:mm:ss tt";
+
         [DebuggerStepThrough]
         public static bool IsValid(this DateTime target)
         {
@@ -234,6 +237,46 @@ namespace Fanex.Common.Extensions
             {
                 return lengthOfTime.Days.ToString() + "d";
             }
+        }
+
+        /// <summary>
+        /// Format a DateTime value to short date format, separated by '-'.
+        /// </summary>
+        /// <param name="date">DateTime type that the method needs to be attached to.</param>
+        /// <returns>Formatted date such as 2013-10-10.</returns>
+        public static string ToShortFormatedDate(this DateTime? date)
+        {
+            if (date.HasValue)
+            {
+                return date.Value.ToShortFormatedDate();
+            }
+
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Format a DateTime value to short date format, separated by '-'.
+        /// </summary>
+        /// <param name="date">DateTime type that the method needs to be attached to.</param>
+        /// <returns>Formatted date such as 2013-10-10.</returns>
+        public static string ToShortFormatedDate(this DateTime date)
+        {
+            return date.ToString(ShortDateFormat);
+        }
+
+        public static string ToFullFormatedDate(this DateTime? date)
+        {
+            if (date.HasValue)
+            {
+                return date.Value.ToFullFormatedDate();
+            }
+                
+            return string.Empty;
+        }
+
+        public static string ToFullFormatedDate(this DateTime date)
+        {
+            return date.ToString(FullDateFormat);
         }
     }
 }
