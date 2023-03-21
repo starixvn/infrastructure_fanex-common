@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysi
 		CodeAnalysis\CodeAnalysisConfiguration.xml = CodeAnalysis\CodeAnalysisConfiguration.xml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Common.UnitTests", "Fanex.Common.UnitTests\Fanex.Common.UnitTests.csproj", "{D2BD5ABF-C2FF-4B72-8DB9-E86C691A3520}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,18 @@ Global
 		{1766DA24-D998-494B-B850-1DA947A5AC4C}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{1766DA24-D998-494B-B850-1DA947A5AC4C}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{1766DA24-D998-494B-B850-1DA947A5AC4C}.Release|x86.ActiveCfg = Release|Any CPU
+		{D2BD5ABF-C2FF-4B72-8DB9-E86C691A3520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2BD5ABF-C2FF-4B72-8DB9-E86C691A3520}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2BD5ABF-C2FF-4B72-8DB9-E86C691A3520}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D2BD5ABF-C2FF-4B72-8DB9-E86C691A3520}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D2BD5ABF-C2FF-4B72-8DB9-E86C691A3520}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D2BD5ABF-C2FF-4B72-8DB9-E86C691A3520}.Debug|x86.Build.0 = Debug|Any CPU
+		{D2BD5ABF-C2FF-4B72-8DB9-E86C691A3520}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2BD5ABF-C2FF-4B72-8DB9-E86C691A3520}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2BD5ABF-C2FF-4B72-8DB9-E86C691A3520}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D2BD5ABF-C2FF-4B72-8DB9-E86C691A3520}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D2BD5ABF-C2FF-4B72-8DB9-E86C691A3520}.Release|x86.ActiveCfg = Release|Any CPU
+		{D2BD5ABF-C2FF-4B72-8DB9-E86C691A3520}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
