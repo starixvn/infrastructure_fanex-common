@@ -9,6 +9,8 @@
       - Support .NET Standard
       - Support .NET 5
       - Remove SessionExtensions, QueryExtensions, HttpRequestExtensions, Cryptography
+      - Remove FileSystemWatcher
+      - Add PasswordHash
     </Description>
     <Version>1.1.1-beta1</Version>
   </PropertyGroup>
