@@ -11,7 +11,11 @@ namespace Fanex.Common.Extensions
 {
     using System;
     using System.Data;
+#if NETSTANDARD
     using System.Data.SqlClient;
+#else
+    using Microsoft.Data.SqlClient;
+#endif
     using System.Diagnostics;
 
     /// <summary>
